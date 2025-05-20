@@ -1,0 +1,14 @@
+#outline{
+  display:flex;
+  flex-direction:column;
+  width:70vw;
+  height:130px;
+  border:1px solid black;
+  padding: 10px 8px;
+  justify-content: space-between;
+  margin-left:20px;
+}
+.div-flex{
+  display: flex;
+  gap:10px
+}
