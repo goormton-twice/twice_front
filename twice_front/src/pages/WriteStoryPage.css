@@ -1,0 +1,54 @@
+/* WriteStoryPage.css */
+
+.write-story-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  flex: 1; /* Layout의 <main> 안에서 꽉 차게 */
+  background-color: #fff;
+}
+
+.write-story-header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.write-story-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.write-story-label {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.write-story-textarea {
+  width: 100%;
+  height: 200px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+  margin-bottom: 16px;
+}
+
+.write-story-button {
+  align-self: flex-end;
+  padding: 12px 24px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.write-story-button:active {
+  opacity: 0.8;
+}

@@ -1,0 +1,94 @@
+/* CategoryDetailPage.css */
+
+.category-detail-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  flex: 1;
+  background-color: #fff;
+}
+
+.category-detail-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.category-detail-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.category-detail-main {
+  flex: 1;
+  padding-bottom: 24px;
+}
+
+.category-detail-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.category-detail-card {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  font-size: 0.75rem;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  margin-right: 8px;
+}
+
+.user-date {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.support-content {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.go-write-button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background: none;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.go-write-button:active {
+  opacity: 0.8;
+}
