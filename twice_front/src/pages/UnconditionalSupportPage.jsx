@@ -1,0 +1,26 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import './UnconditionalSupportPage.css'
+import CategoryList from '../components/CategoryList.jsx'
+
+const categories = [
+  { label: '내 편 좀 들어줘', tag: '#다정한' },
+  { label: '위로가 필요해', tag: '#따뜻한' },
+  { label: '잘하고 있다는 말이 듣고 싶어', tag: '#든든한' },
+]
+
+export default function UnconditionalSupportPage() {
+  const navigate = useNavigate()
+
+  const handleCategoryClick = (idx) => {
+    navigate(`/support/category${idx + 1}`)
+  }
+
+  return (
+    <div className="uncond-container">
+      <h1 className="uncond-title">무조건 응원함</h1>
+      <p className="uncond-subtitle">응원 받고 싶은 카테고리를 선택해주세요</p>
+      <CategoryList categories={categories} onCategoryClick={handleCategoryClick} />
+    </div>
+  )
+}
