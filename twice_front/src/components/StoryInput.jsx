@@ -4,7 +4,7 @@ import Likes from "./likes";
 import "./StoryInput.css";
 const StoryInput = (props) => {
   const {
-    hasTags = false,
+    Tag= null,
     hasLikes = false,
     style = {},
     hasBookmark = false,
@@ -18,7 +18,7 @@ const StoryInput = (props) => {
           <div>닉네임</div>
           <div>05.16</div>
         </div>
-        {hasTags && <Button disabled>위로</Button>}
+        {Tag && <Button disabled>{Tag}</Button>}
       </div>
 
       <div style={{ fontWeight: "normal", fontSize: "0.9em", marginBottom:"10px" }}>{children}</div>
