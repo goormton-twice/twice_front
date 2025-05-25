@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import PopularCheers from './pages/PopularCheers'
-
+import PopularCheersList from './pages/PopularCheersList'
+import PopularCheer from './pages/PopularCheer'
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/popularCheers" element={<PopularCheers />} />
+        <Route path="/popularCheersList" element={<PopularCheersList />} />
+        <Route path = "/popularCheer" element = {<PopularCheer />} />
       </Routes>
     </BrowserRouter>
   )
