@@ -1,94 +1,127 @@
-/* CategoryDetailPage.css */
-
 .category-detail-container {
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
   padding: 0 16px;
-  flex: 1;
-  background-color: #fff;
 }
 
 .category-detail-header {
   display: flex;
   align-items: center;
   padding: 16px 0;
+  gap: 12px;
 }
 
 .back-button {
   background: none;
   border: none;
-  font-size: 1.5rem;
-  margin-right: 8px;
   cursor: pointer;
 }
 
 .category-detail-title {
   font-size: 1.5rem;
   font-weight: bold;
-}
-
-.category-detail-main {
-  flex: 1;
-  padding-bottom: 24px;
+  margin: 0;
 }
 
 .category-detail-subtitle {
-  text-align: center;
-  font-size: 1rem;
+  color: black;
+  font-weight: bold;
   margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+
 }
 
 .category-detail-card {
-  border: 1px solid #000;
-  border-radius: 8px;
+  background: white;
+  border-radius: 0px;
   padding: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  border: 1px solid #e1e5e9;
+  cursor: pointer;
 }
 
 .user-info {
   display: flex;
   align-items: center;
+  gap: 8px;
   margin-bottom: 12px;
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #ccc;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
+  background: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 8px;
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 
 .user-name {
-  font-size: 0.9rem;
-  margin-right: 8px;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .user-date {
-  font-size: 0.8rem;
-  color: #777;
+  color: #999;
+  font-size: 12px;
+  margin-left: auto;
 }
 
 .support-content {
-  font-size: 1rem;
-  font-weight: bold;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 12px;
 }
 
-.go-write-button {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #000;
-  border-radius: 8px;
+.support-content.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.toggle-button {
   background: none;
-  font-size: 1rem;
-  text-align: center;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.write-story-button {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid black;
+  background: white;
+  color: black;
+  border-radius: 0px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.go-write-button:active {
-  opacity: 0.8;
+.write-story-button.disabled {
+  background: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.view-support-button {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid black;
+  background: white;
+  color: black;
+  border-radius: 0px;
+  font-size: 14px;
+  cursor: pointer;
 }

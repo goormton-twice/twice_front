@@ -15,6 +15,7 @@ import UnconditionalSupportPage from './pages/UnconditionalSupportPage.jsx'
 import CategoryDetailPage1 from './pages/CategoryDetailPage1.jsx'
 import CategoryDetailPage2 from './pages/CategoryDetailPage2.jsx'
 import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
+import StoryDetailPage from './pages/StoryDetailPage.jsx'
 import MyPage from './pages/MyPage.jsx'
 
 export default function App() {
@@ -31,9 +32,10 @@ export default function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/write" element={<WriteStoryPage />} />
         <Route path="/support" element={<UnconditionalSupportPage />} />
-        <Route path="/support/:category1" element={<CategoryDetailPage1 />} />
-        <Route path="/support/:category2" element={<CategoryDetailPage2 />} />
-        <Route path="/support/:category3" element={<CategoryDetailPage3 />} />
+        <Route path="/support/kind" element={<CategoryDetailPage1 />} />
+        <Route path="/support/story" element={<StoryDetailPage />} />
+        <Route path="/support/warm" element={<CategoryDetailPage2 />} />
+        <Route path="/support/power" element={<CategoryDetailPage3 />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </Layout>

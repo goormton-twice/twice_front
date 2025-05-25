@@ -1,0 +1,13 @@
+#outline{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  height:max-content;
+  padding: 10px 10px 0px 8px;
+  gap:10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.div-flex{
+  display: flex;
+}
