@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 
-function App() {
-  const [count, setCount] = useState(0)
+import MobileLayout from './layouts/MobileLayout.jsx'
+import DesktopLayout from './layouts/DesktopLayout.jsx'
+
+import Home from './pages/Home.jsx'
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
+import Cart from './pages/Cart.jsx'
+import UserProfile from './pages/UserProfile.jsx'
+import WriteStoryPage from './pages/WriteStoryPage.jsx'
+import UnconditionalSupportPage from './pages/UnconditionalSupportPage.jsx'
+import CategoryDetailPage1 from './pages/CategoryDetailPage1.jsx'
+import CategoryDetailPage2 from './pages/CategoryDetailPage2.jsx'
+import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
+import MyPage from './pages/MyPage.jsx'
+
+export default function App() {
+  const role = sessionStorage.getItem('role') // 'user' or 'seller'
+  const Layout = role === 'user' ? MobileLayout : DesktopLayout
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Layout>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/write" element={<WriteStoryPage />} />
+        <Route path="/support" element={<UnconditionalSupportPage />} />
+        <Route path="/support/:category1" element={<CategoryDetailPage1 />} />
+        <Route path="/support/:category2" element={<CategoryDetailPage2 />} />
+        <Route path="/support/:category3" element={<CategoryDetailPage3 />} />
+        <Route path="/mypage" element={<MyPage />} />
+      </Routes>
+    </Layout>
   )
 }
-
-export default App

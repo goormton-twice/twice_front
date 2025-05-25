@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { faAngleLeft, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import './Header.css';
 import homeIcon from '../icons/home.png';
 import mujoIcon from '../icons/mujo.png';

@@ -1,0 +1,101 @@
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 헤더 + 설명 */
+.page-logo {
+  font-size: 2rem;
+  margin: 0;
+  align-self: flex-start;
+}
+.page-instruction {
+  margin: 8px 0 16px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+/* 응원, 사연 담길 컨테이너, 둥글지 않은 직사각형(=border-radius:0) */
+.carousel-card {
+  width: 100%;
+  aspect-ratio: 0.7;
+  max-width: 400px;
+  border: 1px solid #000;
+  border-radius: 0; /* 둥글지 않게 */
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden; /* 내부 스크롤 영역만 따로 지정 */
+}
+
+/* 사연·응원 스크롤 영역 */
+.card-content {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  margin-bottom: 12px;
+}
+
+/* 사용자 정보 */
+.card-user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 40px; height: 40px;
+  background: #ccc; border-radius: 50%;
+  margin-right: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; color: #666;
+}
+.username { font-weight: 500; margin-right: 8px; }
+.date     { color: #777; font-size: 0.85rem; }
+
+/* 구분선 */
+.divider {
+  height: 1px;
+  background: #ccc;
+  margin: 12px 0;
+}
+
+/* 인디케이터 (카드 안에) */
+.indicator {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 0;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+}
+.dot.active { background: #333; }
+
+/* “따뜻한 응원 보내기” 버튼 (카드 안에) */
+.send-cheer-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #e0e0e0;
+  border: none;
+  border-radius: 100; /* 직사각형 끝까지 */
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: auto; /* 항상 카드 맨 아래로 밀어내기 */
+}
+.send-cheer-button .arrow {
+  width: 20px;
+  height: 20px;
+}

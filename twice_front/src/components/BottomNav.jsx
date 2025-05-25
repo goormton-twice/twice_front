@@ -5,7 +5,7 @@ import "./BottomNav.css";
 // 사용할 아이콘 import
 import "./FontAwesome";
 // FontAwesomIcon 컴포넌트를 사용하기 위해 import
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BottomNav = () => {
   // 현재 선택된 아이콘을 관리하는 state
