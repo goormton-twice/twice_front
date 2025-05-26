@@ -1,6 +1,5 @@
 // src/App.jsx
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PopularCheersList from './pages/PopularCheersList'
 import PopularCheer from './pages/PopularCheer'
@@ -26,8 +25,6 @@ export default function App() {
   const Layout = role === 'user' ? MobileLayout : DesktopLayout
 
   return (  
-      <BrowserRouter>
-
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -45,4 +42,5 @@ export default function App() {
         <Route path = "/popularCheer" element = {<PopularCheer />} />
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
       </Routes>
-    </BrowserRouter>)}
+      )
+    }
