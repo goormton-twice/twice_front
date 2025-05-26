@@ -17,6 +17,8 @@ import CategoryDetailPage2 from './pages/CategoryDetailPage2.jsx'
 import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
 import StoryDetailPage from './pages/StoryDetailPage.jsx'
 import MyPage from './pages/MyPage.jsx'
+import HomeSendCheer from './components/HomeSendCheer'; // 경로 주의
+
 
 export default function App() {
   const role = sessionStorage.getItem('role') // 'user' or 'seller'
@@ -37,6 +39,7 @@ export default function App() {
         <Route path="/support/warm" element={<CategoryDetailPage2 />} />
         <Route path="/support/power" element={<CategoryDetailPage3 />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/" element={<HomeSendCheer />} />
       </Routes>
     </Layout>
   )
