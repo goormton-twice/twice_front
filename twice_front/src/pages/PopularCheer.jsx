@@ -71,7 +71,6 @@ const PopularCheer = () => {
       </div>
 
       <StoryInput
-        hasTags={false}
         hasLikes={true}
         hasBookmark={true}
         style={{
@@ -84,7 +83,6 @@ const PopularCheer = () => {
       </StoryInput>
 
       <StoryInput
-        hasTags={false}
         hasLikes={false}
         hasBookmark={false}
         style={{ borderBottom: "1px solid [#B3B2B2]" }}
