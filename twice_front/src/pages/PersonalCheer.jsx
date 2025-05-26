@@ -3,6 +3,7 @@ import Profile from "../components/profile";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Rock from '../components/Rock';
+import Footer from '../components/Footer';
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);
