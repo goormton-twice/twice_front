@@ -1,6 +1,5 @@
 // src/App.jsx
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PopularCheersList from './pages/PopularCheersList'
 import PopularCheer from './pages/PopularCheer'
@@ -44,5 +43,6 @@ export default function App() {
         <Route path="/popularCheersList" element={<PopularCheersList />} />
         <Route path = "/popularCheer" element = {<PopularCheer />} />
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
+        <Route path="/writeCheer" element={<WriteCheer />}></Route>
       </Routes>
     </BrowserRouter>)}
