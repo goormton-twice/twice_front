@@ -25,8 +25,6 @@ export default function App() {
   const Layout = role === 'user' ? MobileLayout : DesktopLayout
 
   return (  
-      <BrowserRouter>
-
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -45,4 +43,5 @@ export default function App() {
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
       </Routes>
-    </BrowserRouter>)}
+      )
+    }
