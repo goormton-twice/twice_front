@@ -1,0 +1,65 @@
+/* src/components/InputBar.css */
+
+/* 전체 화면을 덮는 반투명 오버레이 */
+.inputbar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+/* 입력창 컨테이너 (화면 맨 아래 고정) */
+.inputbar-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
+
+/* 취소 버튼 */
+.inputbar-cancel-btn {
+  background: none;
+  border: none;
+  color: #555555;
+  font-size: 1rem;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* 텍스트 입력 필드 */
+.inputbar-textfield {
+  flex: 1;
+  margin: 0 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  outline: none;
+}
+
+/* 전송 버튼 */
+.inputbar-send-btn {
+  background: #986ce9;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* 전송 버튼 비활성화 상태 */
+.inputbar-send-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
