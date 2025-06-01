@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
+import Footer from "../components/Footer";
 
 const PopularCheersList = () => {
   const [selectedTag, setSelectedTag] = useState(null);
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
-  if (selectedTag === tag) {
-    setSelectedTag(null); // 같은 버튼 두 번 누르면 전체 보기로
-  } else {
-    setSelectedTag(tag);
-  }
-  }
+    if (selectedTag === tag) {
+      setSelectedTag(null); // 같은 버튼 두 번 누르면 전체 보기로
+    } else {
+      setSelectedTag(tag);
+    }
+  };
   const posts = [
     {
       id: 1,
@@ -47,29 +48,59 @@ const PopularCheersList = () => {
       },
     },
   ];
-  const filteredPosts = selectedTag === null 
-  ? posts 
-  : posts.filter(post => post.tag.includes(selectedTag));
+  const filteredPosts =
+    selectedTag === null
+      ? posts
+      : posts.filter((post) => post.tag.includes(selectedTag));
 
   return (
-    <div style={{ padding: "20px" }}>
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignContent: "center",
-          flexDirection: "column",
-          gap: "20px",
-        }}
-      >
-        <div style={{ fontWeight: "900", fontSize: "1.5em" }}>인기 응원함</div>
-        <div style={{ display: "flex", gap: "10px", }}>
-          <Button onClick={handleTagClick} style={{padding:"10px 20px", borderRadius:"0"}}>공감</Button>
-          <Button onClick={handleTagClick} style={{padding:"10px 20px", borderRadius:"0"}}>위로</Button>
-          <Button onClick={handleTagClick} style={{padding:"10px 20px", borderRadius:"0"}}>응원</Button>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+
+      }}
+    >
+      <div style={{ padding: "35px 25px 0 25px",  display: "flex",
+        alignContent: "center",
+        flexDirection: "column", gap: "10px" }}>
+        <div style={{ fontWeight: "700", fontSize: "1.5em" }}>인기 응원함</div>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button
+            onClick={handleTagClick}
+            style={{
+              backgroundColor: "rgba(247, 243, 255, 1)",
+              padding: "14px 20px",
+              border: "1px solid rgba(137, 137, 137, 1)",
+              borderRadius: "30px",
+            }}
+          >
+            공감
+          </Button>
+          <Button
+            onClick={handleTagClick}
+            style={{
+              backgroundColor: "rgba(247, 243, 255, 1)",
+              padding: "14px 20px",
+              border: "1px solid rgba(137, 137, 137, 1)",
+              borderRadius: "30px",
+            }}
+          >
+            위로
+          </Button>
+          <Button
+            onClick={handleTagClick}
+            style={{
+              backgroundColor: "rgba(247, 243, 255, 1)",
+              padding: "14px 20px",
+              border: "1px solid rgba(137, 137, 137, 1)",
+              borderRadius: "30px",
+            }}
+          >
+            응원
+          </Button>
         </div>
-        {filteredPosts.map((post) =>(
+        {filteredPosts.map((post) => (
           <StoryInput
             key={post.id}
             hasLikes={post.hasLikes}
@@ -78,9 +109,9 @@ const PopularCheersList = () => {
           >
             {post.content}
           </StoryInput>
-          ) 
-        )}
+        ))}
       </div>
+      <Footer />
     </div>
   );
 };

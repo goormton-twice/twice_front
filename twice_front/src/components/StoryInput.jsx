@@ -26,13 +26,13 @@ const StoryInput = (props) => {
         {hasLikes && (
           <div className="div-flex" style={{ gap: "5px", fontSize: "14px"  }}>
             <div>
-              <Likes style={{width:"25px"}} />
+              <Likes style={{width:"25px"}} stroke="rgba(152, 108, 233, 1)" />
             </div>
             <div>응원</div>
             <div>3</div>
           </div>
         )}
-        {hasBookmark && <Bookmark />}
+        {hasBookmark && <Bookmark stroke="rgba(152, 108, 233, 1)" />}
       </div>
     </div>
   );
