@@ -18,6 +18,8 @@ import CategoryDetailPage2 from './pages/CategoryDetailPage2.jsx'
 import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
 import StoryDetailPage from './pages/StoryDetailPage.jsx'
 import MyPage from './pages/MyPage.jsx'
+import WriteCheer from './pages/WriteCheer.jsx'
+import MyCheer from './pages/MyCheer.jsx'
 
 
 export default function App() {
@@ -42,6 +44,7 @@ export default function App() {
         <Route path = "/popularCheer" element = {<PopularCheer />} />
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
+        <Route path="/myCheer" element={<MyCheer />}></Route>
       </Routes>
       )
     }
