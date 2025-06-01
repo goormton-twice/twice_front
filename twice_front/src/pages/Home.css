@@ -1,101 +1,305 @@
+/* Home.css (전체 수정) */
+
+body {
+  margin: 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%);
+}
+
+/* --------------------------------------------------
+   1) 전체 컨테이너
+   -------------------------------------------------- */
 .carousel-container {
+  position: relative;
+  width: 393px;            /* 아이폰 가로 크기 기준 */
+  height: 852px;           /* 아이폰 세로 크기 기준 */
+  margin: 0 auto;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%);
+  border-radius: 30px;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
-  max-width: 400px;
-  margin: 0 auto;
-  background: #fff;
-  min-height: 100vh;
-  box-sizing: border-box;
 }
 
-/* 헤더 + 설명 */
+/* --------------------------------------------------
+   2) 로고 + 안내 문구
+   -------------------------------------------------- */
 .page-logo {
-  font-size: 2rem;
+  font-family: 'Pacifico', cursive;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 70px;
   margin: 0;
-  align-self: flex-start;
-}
-.page-instruction {
-  margin: 8px 0 16px;
-  font-weight: 600;
-  align-self: flex-start;
+  margin-left: 37px;
+  margin-top: 71px;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #ffbf96 0%,
+    #f7bad2 32.69%,
+    #d0adf4 66.83%,
+    #89c0fd 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* 응원, 사연 담길 컨테이너, 둥글지 않은 직사각형(=border-radius:0) */
-.carousel-card {
+.page-instruction {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: left;
+  color: #000;
+  margin-top: 8px;
+  padding-left: 10%;
+}
+
+/* --------------------------------------------------
+   3) 3D 캐러셀 래퍼
+   -------------------------------------------------- */
+.carousel-3d-wrapper {
+  position: relative;
   width: 100%;
-  aspect-ratio: 0.7;
-  max-width: 400px;
-  border: 1px solid #000;
-  border-radius: 0; /* 둥글지 않게 */
+  height: 450px;               /* 카드 높이를 충분히 포함할 만큼 설정 */
+  margin-top: 20px;            /* 로고/설명과의 간격 */
+  display: flex;
+  align-items: center;         /* 이걸로 y축을 가운데 정렬 */
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------
+   4) 개별 카드 (공통 스타일)
+   -------------------------------------------------- */
+.carousel-card {
+  position: absolute;          /* 부모(.carousel-3d-wrapper)에 상대적인 절대 위치 */
+  top: 0%;
+  left: 10%;
+  transform: translate(-20%, 20%);
+  width: 304px;                /* 카드 고정 폭 */
+  height: 374px;           /* 카드 고정 높이 */
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 
+    0px 4px 12px rgba(0, 0, 0, 0.15),
+    0px 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  box-sizing: border-box;
-  overflow: hidden; /* 내부 스크롤 영역만 따로 지정 */
+  gap: 17px;
+  border: 1.5px solid #986ce9;
+  /* 중요: y축 위치 고정 */
 }
 
-/* 사연·응원 스크롤 영역 */
-.card-content {
-  flex: 1;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  margin-bottom: 12px;
-}
-
-/* 사용자 정보 */
+/* --------------------------------------------------
+   5) 카드 내부: 사용자 정보 / 내용 / 버튼
+   -------------------------------------------------- */
+/* 사용자 정보(프로필&닉네임&날짜) */
 .card-user {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
 .avatar {
-  width: 40px; height: 40px;
-  background: #ccc; border-radius: 50%;
-  margin-right: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem; color: #666;
-}
-.username { font-weight: 500; margin-right: 8px; }
-.date     { color: #777; font-size: 0.85rem; }
-
-/* 구분선 */
-.divider {
-  height: 1px;
-  background: #ccc;
-  margin: 12px 0;
+  width: 33px;
+  height: 33px;
+  background: #f5f5f5;
+  border-radius: 100px;
+  box-shadow: 
+    0px 2px 3px rgba(0, 0, 0, 0.25),
+    0px 1px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
 }
 
-/* 인디케이터 (카드 안에) */
-.indicator {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin: 12px 0;
+.username {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
 }
-.dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #ddd;
-}
-.dot.active { background: #333; }
 
-/* “따뜻한 응원 보내기” 버튼 (카드 안에) */
+.date {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #000;
+  font-weight: 400;
+}
+
+/* 카드 내용(텍스트) */
+.card-content {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+  line-height: 30px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  overflow-y: hidden;        /*내용이 길어지면 더보기로 자름*/
+  height: 120px;        /* 필요에 따라 조정 */
+  white-space: pre-wrap;    /* 줄바꿈을 살려줌 */
+}
+
+/* “따뜻한 응원 보내기” 버튼 */
 .send-cheer-button {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: #e0e0e0;
-  border: none;
-  border-radius: 100; /* 직사각형 끝까지 */
-  cursor: pointer;
+  justify-content: center;
+  gap: 7px;
+  width: 267px;
+  height: 43px;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
   font-weight: 500;
-  margin-top: auto; /* 항상 카드 맨 아래로 밀어내기 */
+  color: #fff;
+  background: #986ce9;
+  border: 1.5px solid #986ce9;
+  box-shadow: 
+    0px 4px 12px rgba(0, 0, 0, 0.15),
+    0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 10px;
+}
+.send-cheer-button:hover {
+  background: #7e56c7;
+  border-color: #7e56c7;
 }
 .send-cheer-button .arrow {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #986ce9;
+  margin-left: 4px;
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+
+/* ── 하단 입력 바 ── */
+.input-bar-container {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  width: 90%;       /* 화면 폭의 90% 정도 */
+  max-width: 360px; /* 너무 커지지 않도록 제한 */
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden; /* 내부 요소가 범위를 넘지 않도록 */
+  z-index: 200px;      /* 다른 요소 위에 보이도록 */
+}
+
+.cheer-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.send-button {
+  width: 48px;
+  height: 48px;
+  background: #986CE9;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.send-button .arrow-icon {
+  color: #FFFFFF;
+  width: 24px;
+  height: 24px;
+}
+/* Home.css */
+
+/* (이미 존재하는 전체 스타일 아래에 ↓ 입력 바 관련만 추가) */
+/* ── 실제 입력 바 전체 컨테이너 ── */
+.input-bar {
+  position: absolute;
+  bottom: 120px; /* 네비게이션 바 높이만큼 띄움. 필요시 미세 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 393px; /* 피그마 상단 캔버스 너비와 동일 */
+  height: 53px; /* 피그마 권장 높이 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px 10px;
+  gap: 10px;
+  background: #F5F5F5; /* 피그마 지정 배경 색상 */
+  box-sizing: border-box;
+  z-index: 300; /* z-index를 높여서 send-button 위로 표시 */
+}
+
+/* ── 입력 내부 “화이트 바(배경)” ── */
+.input-bar-background {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  gap: 10px;
+
+  width: 373px; /* 393px - (10px+10px) 패딩 여유 고려 */
+  height: 43px; /* 피그마 권장 높이 */
+  background: #FFFFFF;
+  border: 1px solid #636363;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15), 
+              0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+/* ── 실제 텍스트 입력 필드 ── */
+.cheer-input {
+  flex: 1; /* 남은 가로 공간을 모두 차지 */
+  border: none;
+  outline: none;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  line-height: 30px; /* 피그마 지정 */
+  color: #CECECE; /* 회색 placeholder 느낌 */
+  background: transparent;
+}
+/* ── 전송(화살표) 버튼 ── */
+.send-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #986CE9;
+  border: none;
+  border-radius: 100px; /* 둥근 원형 */
+  cursor: pointer;
+}
+
+/* ── 화살표 아이콘(벡터) ── */
+.arrow-icon {
+  width: 100px;
+  height: 100px;
+  color: #fff;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

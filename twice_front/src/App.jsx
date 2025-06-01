@@ -19,7 +19,6 @@ import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
 import StoryDetailPage from './pages/StoryDetailPage.jsx'
 import MyPage from './pages/MyPage.jsx'
 
-
 export default function App() {
   const role = sessionStorage.getItem('role') // 'user' or 'seller'
   const Layout = role === 'user' ? MobileLayout : DesktopLayout
