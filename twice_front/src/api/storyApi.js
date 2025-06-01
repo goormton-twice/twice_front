@@ -13,7 +13,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export const getRandomStories = async (size = 3) => {
+export const getRandomStories = async (size = 5) => {
   const response = await API.get(`/stories/random?size=${size}`);
   return response.data.data;
 };

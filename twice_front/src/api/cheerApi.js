@@ -1,24 +1,71 @@
 // src/api/cheerApi.js
-import api from './api';
 
-// 전체 응원함(스토리) 목록 불러오기
-export const getAllStories = async () => {
-  const res = await api.get('/api/stories');
-  return res.data.data;  // 배열 형태의 story 목록
+const BASE_URL = "https://api.cheer-up.net/api";
+
+export const getRandomStories = async (size = 5) => {
+  try {
+    const res = await fetch(`${BASE_URL}/stories/random?size=${size}`, {
+      method: "GET",
+      credentials: "include", // 쿠키 포함
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const json = await res.json();
+    return json.data;
+  } catch (err) {
+    console.error("응원 게시글 불러오기 실패:", err);
+    throw err;
+  }
 };
 
-// 특정 스토리의 응원 메시지 불러오기
+
+// 응원 메시지 불러오기 (스토리 기준)
 export const getCheersByStoryId = async (storyId) => {
-  const res = await api.get(`/api/cheers/story/${storyId}`);
-  return res.data.data;  // cheer 메시지 배열
+  try {
+    const res = await fetch(`${BASE_URL}/cheers?storyId=${storyId}`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const json = await res.json();
+    return json.data;
+  } catch (err) {
+    console.error("응원 메시지 불러오기 실패:", err);
+    return [];
+  }
 };
 
-// 응원 메시지 생성
+// 응원 메시지 보내기
 export const postCheer = async ({ storyId, content, category }) => {
-  const res = await api.post('/api/cheers', {
-    storyId,
-    content,
-    category
-  });
-  return res.data.data;  // 생성된 cheer 메시지
+  try {
+    const res = await fetch(`${BASE_URL}/cheers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        storyId,
+        content,
+        category,
+      }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "응원 전송 실패");
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("응원 전송 실패:", err);
+    throw err;
+  }
 };
