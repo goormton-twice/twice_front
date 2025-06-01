@@ -1,10 +1,12 @@
 // src/pages/Home.jsx
-import React, { useState } from "react";
+// ✅ useEffect를 포함하도록 수정
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { ChevronUp } from "lucide-react";
 import HomeSendCheer from "../components/HomeSendCheer";
 import InputBar from "../components/InputBar";        // 새로 만든 입력창 컴포넌트
+import { getAllStories, getCheersByStoryId, postCheer } from "../api/cheerApi";
 import "./Home.css";
 
 // ───── 예시 데이터 (생략하지 말고 그대로 붙여주세요) ─────
@@ -101,20 +103,48 @@ export default function Home() {
 
   };
 
+    // ▶ 사연과 응원 메시지 불러오기
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedStories = await getAllStories();
+      setStories(fetchedStories);
+
+      // 각 스토리에 대해 첫 번째 응원 메시지만 가져오기
+      const cheersList = await Promise.all(
+        fetchedStories.map(async (story) => {
+          const cheerMessages = await getCheersByStoryId(story.storyId);
+          return cheerMessages[0] || {
+            content: "아직 응원이 없어요 😢",
+            date: new Date().toISOString(),
+            user: {
+              username: "cheerup",
+              profileImageUrl: "/avatars/default.png"
+            }
+          };
+        })
+      );
+      setCheers(cheersList);
+    };
+
+    fetchData();
+  }, []);
+
   // InputBar에서 “전송” 버튼을 누르면 호출될 함수
   // 이 시점에 실제로 응원을 보내는 로직(백엔드 호출 등)을 넣을 수 있고
   // 여기서는 간단히 팝업만 띄워준다.
-  const onInputSubmit = (textValue) => {
-    // (1) 실제 전송 로직: 서버에 POST 날리든, 상태 업데이트를 하든...
-    // 예) sendCheerToServer(textValue).then(...)
+  // ▶ 응원 전송 로직
+  const onInputSubmit = async (textValue) => {
+    const currentStory = stories[index];
+    const storyId = currentStory.storyId;
 
-    // (2) 입력창을 숨기고
+    await postCheer({
+      storyId,
+      content: textValue,
+      category: "기타" // 혹은 선택한 카테고리
+    });
+
     setShowInputBar(false);
-
-    // (3) 200ms 정도 약간의 딜레이 뒤에 “응원 완료” 팝업을 띄워준다
-    setTimeout(() => {
-      setShowCheerPopup(true);
-    }, 150);
+    setTimeout(() => setShowCheerPopup(true), 150);
   };
 
   // “응원 완료” 팝업 닫힐 때 호출
@@ -212,9 +242,9 @@ export default function Home() {
             <path
               d="M5.5 12.5L12.5 5.5M12.5 5.5L19.5 12.5M12.5 5.5V19.5"
               stroke="#986CE9"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round" />
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round" />
           </svg>
       </button>
 

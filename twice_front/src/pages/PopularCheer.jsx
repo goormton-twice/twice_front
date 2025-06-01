@@ -21,7 +21,7 @@ const PopularCheer = () => {
         <div
           style={{
             display: "flex",
-            fontWeight: "900",
+            fontWeight: "700",
             fontSize: "1.5em",
             alignItems: "center",
             gap: "5px",
@@ -85,7 +85,7 @@ const PopularCheer = () => {
       <StoryInput
         hasLikes={false}
         hasBookmark={false}
-        style={{ borderBottom: "1px solid [#B3B2B2]" }}
+        style={{ border: "0", boxShadow: "none" }}
       >
         힘 내세요!
       </StoryInput>
