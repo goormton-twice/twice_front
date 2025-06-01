@@ -7,7 +7,7 @@ import PersonalCheer from './pages/PersonalCheer'
 import MobileLayout from './layouts/MobileLayout.jsx'
 import DesktopLayout from './layouts/DesktopLayout.jsx'
 import Home from './pages/Home.jsx'
-import Login from './pages/Login.jsx'
+import SignIn from './pages/SignIn.jsx'
 import Signup from './pages/Signup.jsx'
 import Cart from './pages/Cart.jsx'
 import UserProfile from './pages/UserProfile.jsx'
@@ -20,7 +20,7 @@ import StoryDetailPage from './pages/StoryDetailPage.jsx'
 import MyPage from './pages/MyPage.jsx'
 import WriteCheer from './pages/WriteCheer.jsx'
 import MyCheer from './pages/MyCheer.jsx'
-
+import AuthForm from './components/AuthForm';
 
 export default function App() {
   const role = sessionStorage.getItem('role') // 'user' or 'seller'
@@ -29,7 +29,7 @@ export default function App() {
   return (  
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<UserProfile />} />
@@ -45,6 +45,7 @@ export default function App() {
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
         <Route path="/myCheer" element={<MyCheer />}></Route>
+        <Route path="/auth" element={<AuthForm />} />
       </Routes>
       )
     }

@@ -1,81 +1,204 @@
-.category-detail-container {
-  min-height: 100vh;
-  padding: 0 16px;
+/* src/pages/CategoryDetailPage.css */
+
+/* ────────────────────────────────────────────────── */
+/* 전체 래퍼 (배경 & 레이아웃) */
+.category-detail-wrapper {
+  position: relative;
+  width: 393px;
+  height: 852px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%);
+  overflow: hidden;
 }
 
-.category-detail-header {
+/* ─ Status Bar - iPhone (선택 사항) ── */
+.status-bar {
+  position: absolute;
+  width: 393px;
+  height: 50px;
+  top: 0;
+  left: 0;
   display: flex;
-  align-items: center;
-  padding: 16px 0;
-  gap: 12px;
+  flex-direction: column;
+  padding: 21px 0 0;
 }
 
-.back-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.category-detail-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.category-detail-subtitle {
-  color: black;
-  font-weight: bold;
-  margin-bottom: 16px;
-  font-size: 14px;
+.status-bar .status-time {
+  width: 37px;
+  height: 22px;
+  margin: 0 auto;
+  font-family: 'SF Pro', sans-serif;
+  font-weight: 590;
+  font-size: 17px;
+  line-height: 22px;
   text-align: center;
-
+  color: #000;
 }
 
+.status-bar .status-icons {
+  position: absolute;
+  width: 133.5px;
+  height: 13px;
+  top: 0;
+  left: calc(50% - 133.5px/2 + 0.5px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-bar .status-cellular,
+.status-bar .status-wifi,
+.status-bar .status-battery {
+  background: #000;
+}
+.status-bar .status-cellular {
+  width: 19.2px;
+  height: 12.23px;
+}
+.status-bar .status-wifi {
+  width: 17.14px;
+  height: 12.33px;
+}
+.status-bar .status-battery {
+  position: relative;
+  width: 27.33px;
+  height: 13px;
+}
+.status-bar .status-battery::before {
+  content: '';
+  position: absolute;
+  width: 21px;
+  height: 10px;
+  top: 15%;
+  left: 19px;
+  background: #000;
+  border-radius: 2.5px;
+  opacity: 1;
+}
+.status-bar .status-battery::after {
+  content: '';
+  position: absolute;
+  width: 1.33px;
+  height: 5px;
+  top: 36%;
+  left: 33px;
+  background: #000;
+  opacity: 0.4;
+}
+
+/* ─ 페이지 타이틀 ── */
+.category-detail-title {
+  position: absolute;
+  top: 81px;
+  left: 36.72px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 40px;
+  color: #000000;
+}
+
+/* ─ 서브타이틀 (“잘하고 있다는 말이 듣고 싶어”에 대한 응원이에요) ── */
+.category-detail-subtitle {
+  position: absolute;
+  top: 174px;
+  left: 38px;
+  width: 302px;
+  height: 70px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 35px;
+  color: #000000;
+}
+
+/* ─ 카드 컨테이너 ── */
 .category-detail-card {
-  background: white;
-  border-radius: 0px;
-  padding: 16px;
-  margin-bottom: 16px;
-  border: 1px solid #e1e5e9;
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 25px;
+  gap: 14px;
+
+  position: absolute;
+  width: 314px;
+  height: 335px;
+  left: calc(50% - 314px/2 + 0.5px);
+  top: calc(50% - 335px/2 + 14.5px);
+
+  background: #FFFFFF;
+  border: 1.5px solid #986CE9;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25),
+              0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
   cursor: pointer;
 }
 
-.user-info {
+/* ─ 카드 헤더 (사용자 정보) ── */
+.card-header {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 10px;
+  width: 271px;
+  height: 43px;
 }
 
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+/* 아바타 */
+.card-avatar {
+  position: relative;
+  width: 33px;
+  height: 33px;
+  border-radius: 100px;
+  background: #F5F0FF;
+  border: 1.71975px solid #986CE9;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25),
+              0px 1px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.avatar-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../avatars/3d_avatar_30.png') no-repeat center / cover;
 }
 
-.user-name {
-  font-weight: 500;
+/* 사용자 이름 */
+.card-username {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 14px;
+  color: #000000;
 }
 
-.user-date {
-  color: #999;
+/* 작성일 */
+.card-date {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 12px;
+  color: #000000;
   margin-left: auto;
 }
 
-.support-content {
-  line-height: 1.5;
-  color: #333;
-  margin-bottom: 12px;
+/* ─ 카드 내용 (collapsed) ── */
+.card-content {
+  width: 271px;
+  height: 210px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  color: #000000;
+  letter-spacing: 0.05em;
+  margin-bottom: 0;
 }
 
-.support-content.collapsed {
+.card-content.collapsed {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   line-clamp: 4;
@@ -83,45 +206,163 @@
   overflow: hidden;
 }
 
-.toggle-button {
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 16px;
-}
-
-.detail-actions {
+/* ─ “응원에 대한 사연 보러 가기 →” 버튼 ── */
+.view-support-button {
+  /* Auto layout */
   display: flex;
-  gap: 8px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 7px;
+
+  width: 267px;
+  height: 43px;
+  background: #FFFFFF;
+  border-radius: 25px;
+  /* required border for arrow icon */
+  position: relative;
+  margin-top: auto;
 }
 
-.write-story-button {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid black;
-  background: white;
-  color: black;
-  border-radius: 0px;
-  font-size: 14px;
+.view-support-text {
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  width: 180px;
+  height: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  color: #656565;
+}
+
+.view-support-icon {
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F0FF;
+}
+
+.view-support-icon .arrow-circle {
+  width: 20px;
+  height: 20px;
+}
+
+/* ─“나만의 사연 쓰기” 하단 버튼 ── */
+.write-story-bottom {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 7px;
+
+  position: absolute;
+  width: 267px;
+  height: 43px;
+  left: calc(50% - 267px/2);
+  top: 636px;
+
+  background: #986CE9;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15),
+              0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  border: none;
   cursor: pointer;
 }
 
-.write-story-button.disabled {
-  background: #e9ecef;
-  color: #adb5bd;
+.write-story-bottom.disabled {
+  background: #b3a0e0;
   cursor: not-allowed;
 }
 
-.view-support-button {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid black;
-  background: white;
-  color: black;
-  border-radius: 0px;
-  font-size: 14px;
+.write-story-text {
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 30px;
+  color: #FFFFFF;
+}
+
+.write-story-icon {
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  width: 22px;
+  height: 23px;
+  background: transparent;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────── */
+/* 일반(활성) 상태의 “나만의 사연 쓰기” 버튼 */
+.write-story-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 7px;
+
+  position: absolute;
+  width: 267px;
+  height: 43px;
+  left: calc(50% - 267px/2);
+  top: 636px;
+
+  background: #986CE9; /* 보라색 */
+  box-shadow:
+    0px 4px 12px rgba(0, 0, 0, 0.15),
+    0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  border: none;
   cursor: pointer;
 }
+
+/* 비활성화 상태(disabled)일 때 */
+.write-story-bottom.disabled {
+  background: #CECECE; /* 회색 */
+  box-shadow:
+    0px 4px 12px rgba(0, 0, 0, 0.15),
+    0px 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: not-allowed;
+}
+
+.write-story-text {
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 30px;
+  color: #FFFFFF; /* 텍스트도 흰색으로 고정 */
+}
+
+/* SVG 아이콘을 감싸는 컨테이너 */
+.write-story-icon {
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  width: 22px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ─────────────────────────────────── */

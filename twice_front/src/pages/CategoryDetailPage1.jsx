@@ -88,7 +88,7 @@ export default function CategoryDetailPage() {
               disabled={isButtonDisabled}
               style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
             >
-              나의 사연 쓰고 응원받으러 가기 →
+              나의 사연 쓰고 응원받으러 가기
               {isButtonDisabled && (
                 <img
                   src="../icons/lock.png"
