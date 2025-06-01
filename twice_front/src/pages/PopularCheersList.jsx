@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Footer from "../components/Footer";
+import axios from 'axios';
 
 const PopularCheersList = () => {
+  const [posts, setPosts] = useState( [
+    {
+      "storyId": 0,
+      "content": "s",
+      "createdAt": "2025-06-01T11:05:10.114Z",
+      "categoryName": "s",
+      "username": "s",
+      "cheerCount": 0
+    }
+  ]);
   const [selectedTag, setSelectedTag] = useState(null);
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
@@ -13,45 +24,21 @@ const PopularCheersList = () => {
       setSelectedTag(tag);
     }
   };
-  const posts = [
-    {
-      id: 1,
-      hasLikes: true,
-      tag: "위로",
-      content: "사연 내용",
-      style: {
-        borderWidth: "0 0 1px 0",
-        borderStyle: "solid",
-        borderColor: "#B3B2B2",
-      },
-    },
-    {
-      id: 2,
-      hasLikes: true,
-      tag: "공감",
-      content: "사연 내용",
-      style: {
-        borderWidth: "0 0 1px 0",
-        borderStyle: "solid",
-        borderColor: "#B3B2B2",
-      },
-    },
-    {
-      id: 3,
-      hasLikes: true,
-      tag: "응원",
-      content: "사연 내용",
-      style: {
-        borderWidth: "0 0 1px 0",
-        borderStyle: "solid",
-        borderColor: "#B3B2B2",
-      },
-    },
-  ];
-  const filteredPosts =
-    selectedTag === null
-      ? posts
-      : posts.filter((post) => post.tag.includes(selectedTag));
+  useEffect(() => {
+    axios.get('http://api.cheer-up.net/api/stories/popular?size=10') // <- Swagger에서 확인한 GET API URL
+      .then((response) => {
+        console.log(response.data); // 응답 데이터 확인
+        setPosts(response.data.data);     // 상태에 저장
+      })
+      .catch((error) => {
+        console.error("API 호출 실패:", error);
+      });
+  }, []); 
+  
+ // const filteredPosts =
+   // selectedTag === null
+     // ? posts
+     // : posts.filter((post) => post.tag.includes(selectedTag));
 
   return (
     <div
@@ -100,12 +87,12 @@ const PopularCheersList = () => {
             응원
           </Button>
         </div>
-        {filteredPosts.map((post) => (
+        {posts.map((post) => (
           <StoryInput
-            key={post.id}
-            hasLikes={post.hasLikes}
-            style={post.style}
-            Tag={post.tag}
+            key={post.storyId}
+            hasLikes={true}
+            style={{}}
+            Tag={post.categoryName}
           >
             {post.content}
           </StoryInput>
