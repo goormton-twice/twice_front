@@ -6,6 +6,7 @@ import Category from "../components/Category";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import { postStory } from '../api/storyApi';
+import { useNavigate } from 'react-router-dom';
 
 const TextArea = styled.textarea`
   &::placeholder {
@@ -31,7 +32,7 @@ const WriteCheer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
-  
+  const navigate = useNavigate(); 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
@@ -121,6 +122,7 @@ const WriteCheer = () => {
               padding: "10px 15px",
             }}
             
+            onClick={() => navigate('/myCheer')}
           >
             {isEnrolled && <div>✓</div>}
             등록하기
