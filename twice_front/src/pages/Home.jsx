@@ -120,7 +120,7 @@ export default function Home() {
       <div className="card-story-wrapper">
         <div className="card-story-header">
           <img
-            src="/avatars/default.png"
+            src="/person1.svg"
             alt={story.username}
             className="card-story-avatar"
           />
@@ -137,7 +137,7 @@ export default function Home() {
       <div className="card-cheer-wrapper">
         <div className="card-cheer-header">
           <img
-            src={cheer.user?.profileImageUrl || "/avatars/default.png"}
+            src="/person2.svg"
             alt={cheer.user?.username || "cheerup"}
             className="card-cheer-avatar"
           />

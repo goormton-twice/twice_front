@@ -12,7 +12,7 @@ import Profile from '../components/Profile.jsx';
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);
-  const [isFiltered, setIsFiltered] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(true);
   const navigate = useNavigate();
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
