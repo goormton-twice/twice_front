@@ -61,7 +61,7 @@ const PersonalCheer = () => {
         }}
       >
         <div>개인 응원함</div>
-        <Profile />
+        <Profile> navigate('/mypage');</Profile>
       </div>
       <div
         style={{
@@ -73,9 +73,15 @@ const PersonalCheer = () => {
         }}
       >
         <img src="../src/assets/react.svg" style={{ width: "100px" }} />
-        <div style={{fontWeight:"700"}}>닉네임 님</div>
-        <div>오늘 보낸 응원 <div style={{fontWeight:"700", display:"inline"}}>3 </div>개</div>
-        <div>지금까지 보낸 응원 <div style={{fontWeight:"700", display:"inline"}}>3 </div>개</div>
+        <div style={{ fontWeight: "700" }}>닉네임 님</div>
+        <div>
+          오늘 보낸 응원{" "}
+          <div style={{ fontWeight: "700", display: "inline" }}>3 </div>개
+        </div>
+        <div>
+          지금까지 보낸 응원{" "}
+          <div style={{ fontWeight: "700", display: "inline" }}>3 </div>개
+        </div>
       </div>
       <div
         style={{
@@ -85,14 +91,35 @@ const PersonalCheer = () => {
           marginBottom: "15px",
         }}
       />
-      <div style={isFiltered? {display:"flex", position:"absolute",flexDirection:"column", alignItems:"center", zIndex:1, translate:"30px 50px"  }: { display: "none" }}>
+      <div
+        style={
+          isFiltered
+            ? {
+                display: "flex",
+                position: "absolute",
+                flexDirection: "column",
+                alignItems: "center",
+                zIndex: 1,
+                translate: "30px 50px",
+              }
+            : { display: "none" }
+        }
+      >
         <Rock />
-          <div style={{textAlign:"center", width:"250px"}}>
-            내가 받은 응원을 보기까지 <br />써야 하는 응원 수가 <div style={{display:"inline", color:"#E35F5F"}}>2개 </div>
-            남았어요
-          </div>
+        <div style={{ textAlign: "center", width: "250px" }}>
+          내가 받은 응원을 보기까지 <br />
+          써야 하는 응원 수가{" "}
+          <div style={{ display: "inline", color: "#E35F5F" }}>2개 </div>
+          남았어요
+        </div>
       </div>
-      <div style={isFiltered ? { filter: "blur(3px)", background:"linear-gradient(white,#F7C0C0)" } : {}}>
+      <div
+        style={
+          isFiltered
+            ? { filter: "blur(3px)", background: "linear-gradient(white,#F7C0C0)" }
+            : {}
+        }
+      >
         <div style={{ display: "flex", gap: "10px", padding: "0 20px" }}>
           <Button
             onClick={handleTagClick}
@@ -113,7 +140,7 @@ const PersonalCheer = () => {
             응원
           </Button>
         </div>
-        <div style={{padding:"0 20px"}}>
+        <div style={{ padding: "0 20px" }}>
           {filteredPosts.map((post) => (
             <StoryInput
               key={post.id}

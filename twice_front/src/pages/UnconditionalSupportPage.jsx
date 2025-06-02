@@ -2,6 +2,7 @@ import React from "react";
 
 import { useNavigate } from 'react-router-dom'
 import './UnconditionalSupportPage.css'
+import Footer from "../components/Footer";
 
 const categories = [
   { label: '내 편 좀 들어줘', tag: '#다정한', idx: 1 },
@@ -41,6 +42,7 @@ export default function UnconditionalSupportPage() {
           </button>
         ))}
       </div>
+      <Footer />
     </div>
   )
 }
