@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom'
 import './UnconditionalSupportPage.css'
 import Footer from "../components/Footer";
+import Category from "../components/Category";
 
 const categories = [
   { label: '내 편 좀 들어줘', tag: '#다정한', idx: 1 },
@@ -16,10 +17,13 @@ export default function UnconditionalSupportPage() {
   const handleCategoryClick = (idx) => {
     if (idx === 1) {
       navigate('/support/kind')
+      // categoryId == 1
     } else if (idx === 2) {
       navigate('/support/warm')
+      // categoryId == 2
     } else {
       navigate('/support/power')
+      // categoryId == 3
     }
   }
 

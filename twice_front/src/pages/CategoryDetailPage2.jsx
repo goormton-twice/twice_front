@@ -1,4 +1,4 @@
-// src/pages/CategoryDetailPage3.jsx
+// src/pages/CategoryDetailPage2.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CategoryDetailPage.css";
@@ -11,7 +11,7 @@ import { getRandomCheerByCategory } from "../api/cheerApi";
 export default function CategoryDetailPage2() {
   const navigate = useNavigate();
 
-  // 카테고리 ID = 2 (“잘하고 있다는 말이 듣고 싶어”)
+  // 카테고리 ID = 2 (“위로가 필요해”)
   const categoryIdNum = 2;
   const categoryName = "위로가 필요해";
 

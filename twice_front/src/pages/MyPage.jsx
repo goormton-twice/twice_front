@@ -1,34 +1,55 @@
 // src/pages/MyPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../api/userApi'; 
+import { getUserInfo } from '../api/userApi';
 import './MyPage.css';
 import Arrow from '../components/Arrow';
 
 export default function MyPage() {
   const navigate = useNavigate();
 
-  // 페이지가 렌더될 때 한 번만 찍히도록
   console.log("▶ MyPage 컴포넌트가 렌더되었습니다.");
 
+  // 사용자 닉네임, 이메일, provider 상태
   const [nickname, setNickname] = useState('닉네임');
-  const email = sessionStorage.getItem('email') || '이메일 없음';
-  const isNaverLinked = sessionStorage.getItem('naverLinked') === 'true';
+  const [email, setEmail] = useState('이메일 없음');
+  const [provider, setProvider] = useState(null); // 'naver' | 'google' | 'kakao' | null
 
   useEffect(() => {
     console.log("▶ MyPage useEffect 동작: 유저 정보 Fetch 시작");
-    async function fetchNickname() {
+    async function fetchUser() {
       try {
-        const user = await getUserInfo();
-        setNickname(user.nickname || '닉네임');
-        console.log("▶ 유저 정보 가져옴:", user);
+        const res = await getUserInfo();
+        // getUserInfo()는 { data: { role, id, email, username, provider }, success, message } 형태로 반환
+        const userData = res.data;
+        setNickname(userData.username || '닉네임');
+        setEmail(userData.email || '이메일 없음');
+        setProvider(userData.provider || null);
+        console.log("▶ 유저 정보 가져옴:", userData);
       } catch (e) {
         setNickname('닉네임');
+        setEmail('이메일 없음');
+        setProvider(null);
         console.error("▶ 유저 정보 Fetch 실패:", e);
       }
     }
-    fetchNickname();
+    fetchUser();
   }, []);
+
+  // provider에 따라 버튼 라벨과 disabled 여부 결정
+  let socialLabel = '소셜 계정 연동';
+  let socialDisabled = false;
+
+  if (provider === 'naver') {
+    socialLabel = '네이버 연동 완료';
+    socialDisabled = true;
+  } else if (provider === 'google') {
+    socialLabel = '구글 연동 완료';
+    socialDisabled = true;
+  } else if (provider === 'kakao') {
+    socialLabel = '카카오 연동 완료';
+    socialDisabled = true;
+  }
 
   // 메뉴 배열
   const items = [
@@ -52,8 +73,8 @@ export default function MyPage() {
         </div>
         <h2 className="profile-name">{nickname}</h2>
         <div className="profile-mail">{email}</div>
-        <button className="profile-naver-btn" disabled={isNaverLinked}>
-          {isNaverLinked ? '네이버 연동 완료' : '네이버 연동'}
+        <button className="profile-naver-btn" disabled={socialDisabled}>
+          {socialLabel}
         </button>
       </section>
 
@@ -70,7 +91,7 @@ export default function MyPage() {
             >
               <span className="mypage-nav-label">{item.label}</span>
               <span className="chevron-svg">
-                {/* 화살표 SVG 생략 */}
+                {/* 화살표 SVG */}
                 <svg
                   width="30"
                   height="30"

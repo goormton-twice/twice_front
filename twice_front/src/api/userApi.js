@@ -48,6 +48,7 @@ export const getUserInfo = async () => {
   } 
   catch (err) {
     console.error("사용자 정보 조회 실패:", err.response?.data || err.message);
+    // err.response.data.message가 내려오면 그것을, 아니면 err.message를 던지도록 합니다.
     const msg = err.response?.data?.message || err.message || "사용자 정보 조회 중 오류가 발생했습니다.";
     throw new Error(msg);
   }

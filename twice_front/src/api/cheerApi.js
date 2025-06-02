@@ -1,9 +1,10 @@
-import api from './api';
+// src/api/cheerApi.js
+import api from "./api";
 
-// 응원 메시지 불러오기 (스토리 기준)
 export const getCheersByStoryId = async (storyId) => {
   try {
     const res = await api.get(`/cheers/story/${storyId}`);
+    // res.data.data는 [{ cheerId, content, createdAt, user: { username, profileImageUrl }, … }, …]
     return res.data.data;
   } catch (err) {
     console.error("응원 메시지 불러오기 실패:", err);
@@ -11,17 +12,26 @@ export const getCheersByStoryId = async (storyId) => {
   }
 };
 
-// 응원 메시지 보내기
-export const postCheer = async ({ storyId, content, category }) => {
+/**
+ * 스토리 ID에 새 응원 메시지를 보냅니다.
+**/
+export const postCheer = async ({ storyId, content }) => {
   try {
-    const res = await api.post('/cheers', { storyId, content, category });
-    return res.data;
+    const res = await api.post("/cheers", { storyId, content });
+    // res.data.data 형태: { cheerId, username, content, createdAt, categoryName }
+    return res.data.data;
   } catch (err) {
-    console.error("응원 전송 실패:", err);
-    throw err;
+    console.error("응원 메시지 생성 실패:", err.response?.data || err);
+    throw new Error(err.response?.data?.message || "응원 메시지 생성 중 오류 발생");
   }
 };
 
+/**
+ * (구버전) 카테고리 + userNumber 기반으로 랜덤 응원 메시지를 가져옵니다.
+ * @param {number} category
+ * @param {number} userNumber
+ * @returns {Promise< object >} res.data.data 반환
+ */
 export const getRandomCheer = async (category, userNumber) => {
   try {
     const res = await api.get("/cheers/random", {
