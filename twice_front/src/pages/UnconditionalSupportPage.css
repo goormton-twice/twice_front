@@ -7,7 +7,7 @@
   background: linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%);
 }
 
-.uncond-header {
+.uncond-title {
   position: absolute;
   width: 163px;
   height: 40px;
@@ -15,8 +15,7 @@
   top: 81px;
   font-family: 'Pretendard';
   font-style: normal;
-  font-weight: 600;
-  font-size: 30px;
+  font-weight: 500;
   line-height: 40px;
   color: #000000;
 }
@@ -27,6 +26,7 @@
   left: calc(50% - 320px / 2 + 0.5px);
   width: 320px;
   height: 339px;
+  font-size: 24px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -41,7 +41,7 @@
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 35px;
   text-align: left;
   color: #000000;
