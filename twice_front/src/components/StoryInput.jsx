@@ -5,7 +5,7 @@ import "./StoryInput.css";
 const StoryInput = (props) => {
   const {
     Tag= null,
-    hasLikes = false,
+    hasLikes = 0,
     style = {},
     hasBookmark = false,
     children = null
@@ -23,13 +23,13 @@ const StoryInput = (props) => {
 
       <div style={{ fontWeight: "normal", fontSize: "0.9em", marginBottom:"10px" }}>{children}</div>
       <div style={{ display: "flex", width:"100%", justifyContent: "space-between" }}>
-        {hasLikes && (
+        {hasLikes >= 0 && (
           <div className="div-flex" style={{ gap: "5px", fontSize: "14px"  }}>
             <div>
               <Likes style={{width:"25px"}} stroke="rgba(152, 108, 233, 1)" />
             </div>
             <div>응원</div>
-            <div>3</div>
+            <div>{hasLikes}</div>
           </div>
         )}
         {hasBookmark && <Bookmark stroke="rgba(152, 108, 233, 1)" />}

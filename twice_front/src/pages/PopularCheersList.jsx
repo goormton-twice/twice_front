@@ -25,7 +25,7 @@ const PopularCheersList = () => {
     }
   };
   useEffect(() => {
-    axios.get('http://api.cheer-up.net/api/stories/popular?size=10') // <- Swagger에서 확인한 GET API URL
+    axios.get('/api/stories/popular?size=10') // <- Swagger에서 확인한 GET API URL
       .then((response) => {
         console.log(response.data); // 응답 데이터 확인
         setPosts(response.data.data);     // 상태에 저장
@@ -90,7 +90,7 @@ const PopularCheersList = () => {
         {posts.map((post) => (
           <StoryInput
             key={post.storyId}
-            hasLikes={true}
+            hasLikes={post.cheerCount}
             style={{}}
             Tag={post.categoryName}
           >
