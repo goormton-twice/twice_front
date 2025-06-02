@@ -1,8 +1,18 @@
 import Arrow from "../components/Arrow";
 import Footer from "../components/Footer";
 import StoryInput from "../components/StoryInput";
-import React from "react";
+import React, { useEffect } from "react";
 const MyCheer = () => {
+  useEffect(async () => {
+    try{
+      const cheers = await getMyStories();
+      console.log("내 응원함 목록:", cheers);
+      
+    }
+    catch(e){
+      console.error("Error fetching stories:", e);
+    }
+  },[])
   const cheers = [
     {
       id: 1,
