@@ -49,14 +49,20 @@
   position: relative;
 }
 
-.eye-icon {
+
+.eye-btn {
   position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9A9A9A;
+  right: 8px;
+  top: 4px;
+  background: transparent;
+  border: none;
   cursor: pointer;
-    z-index: 1;
+  padding: 4px;
+}
+
+.eye-btn img {
+  width: 20px;
+  height: 20px;
 }
 
 .login-button {
