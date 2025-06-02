@@ -52,7 +52,7 @@ const PopularCheersList = () => {
     <div
       style={{
         width: "100%",
-        height: "100vh",
+        height: "screen",
         background:"linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)"
       }}
     >
@@ -101,7 +101,6 @@ const PopularCheersList = () => {
             nickname={post.username}
             hasLikes={post.cheerCount}
             style={{border:"0", borderBottom:"2px solid rgba(218, 218, 218, 1)", boxShadow:"none", borderRadius:"0", backgroundColor:"transparent"}}
-            Tag={post.categoryName}
             date = {post.createdAt.slice(5,7) + "." + post.createdAt.slice(8,10)}
             onClick={() => handlePostClick(post.storyId)}
           >

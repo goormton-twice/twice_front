@@ -7,12 +7,11 @@ import SettingBtn from './SettingBtn';
 import Profile from './profile';
 import Setting from './Setting';
 const StoryInput = (props) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [isYourPage, setIsYourPage] = useState(false);
+
 
   const {
     Tag = null,
-    hasLikes = 0,
+    hasLikes = null,
     style = {},
     nickname = "default",
     date = "?",
@@ -61,7 +60,7 @@ const StoryInput = (props) => {
           justifyContent: "space-between",
         }}
       >
-        {hasLikes >= 0 && (
+        {hasLikes != null && (
           <div className="div-flex" style={{ gap: "5px", fontSize: "14px" }}>
             <div>
               <Likes

@@ -40,34 +40,8 @@ const PersonalCheerDetail = () => {
     getCheer();
   }, [id]);
 
-  const handleSendCheer = async () => {
-    if (!inputValue.trim()) return;
-    try {
-      await postCheer({
-        id,
-        content: inputValue,
-        category: "기타",
-      });
-      setInputValue(""); // 입력창 초기화
-
-      // 새로고침 없이 댓글 목록 갱신
-      const cheers = await getCheersByStoryId(storyId);
-      setComments(
-        (cheers || []).map((c) => ({
-          id: c.cheerId || c.id,
-          avatar: c.user?.profileImageUrl || "/avatars/default.png",
-          user: c.user?.username || "익명",
-          date: c.createdAt ? new Date(c.createdAt).toLocaleDateString() : "-",
-          content: c.content,
-        }))
-      );
-    } catch (err) {
-      console.error("응원 등록 실패:", err);
-      alert("응원 등록에 실패했습니다.");
-    }
-  };
   return (
-    <div style={{ width: "100%", height: "100vh", background: "#f7f3ff" }}>
+    <div style={{ width: "100%", height: "screen", background: "#f7f3ff" }}>
       <div style={{ padding: "35px 25px" }}>
         <div
           style={{
@@ -109,8 +83,7 @@ const PersonalCheerDetail = () => {
             hasSettings={true}
             nickname={post.username}
             date={
-              post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)
-            }
+              post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)}
             hasLikes={post.cheerCount}
             hasBookmark={true}
             style={{
@@ -129,7 +102,6 @@ const PersonalCheerDetail = () => {
         return (
             <StoryInput
             key={cheer.cheerId}
-            hasLikes={cheer.cheerCount}
             nickname={cheer.username}
             date={
               cheer.createdAt.slice(5, 7) + "." + cheer.createdAt.slice(8, 10)

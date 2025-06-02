@@ -71,7 +71,7 @@ const PopularCheer = () => {
     }
   };
   return (
-    <div style={{ width: "100%", height: "100vh", background: "#f7f3ff" }}>
+    <div style={{ width: "100%", height: "screen", background: "#f7f3ff" }}>
       <div style={{ padding: "35px 25px" }}>
         <div
           style={{
@@ -106,6 +106,7 @@ const PopularCheer = () => {
             date={
               post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)
             }
+            
             hasLikes={post.cheerCount}
             hasBookmark={true}
             style={{

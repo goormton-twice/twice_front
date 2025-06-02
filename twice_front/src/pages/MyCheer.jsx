@@ -23,7 +23,7 @@ const MyCheer = () => {
   }, []);
   
   return (
-    <div style={{ width: "100%", height: "100vh", background:"#f7f3ff"}}>
+    <div style={{ width: "100%", height: "screen", background:"#f7f3ff"}}>
       <div style={{ padding: "35px 25px" }}>
         <div
           style={{
