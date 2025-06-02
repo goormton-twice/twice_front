@@ -42,7 +42,13 @@ export const logoutUser = async () => {
 
 // 내 정보 가져오기 (닉네임 등)
 export const getUserInfo = async () => {
-//   const res = await api.get('/users/me');
-//   return res.data;
-  return { nickname: "테스트" };
+  try {
+    const res = await api.get('/users/me');
+    return res.data; 
+  } 
+  catch (err) {
+    console.error("사용자 정보 조회 실패:", err.response?.data || err.message);
+    const msg = err.response?.data?.message || err.message || "사용자 정보 조회 중 오류가 발생했습니다.";
+    throw new Error(msg);
+  }
 };

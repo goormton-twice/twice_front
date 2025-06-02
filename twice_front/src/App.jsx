@@ -20,7 +20,8 @@ import MyPage from './pages/MyPage.jsx'
 import MySupportsPage from "./pages/MySupportsPage";
 import WriteCheer from './pages/WriteCheer.jsx'
 import MyCheer from './pages/MyCheer.jsx'
-import AuthForm from './components/AuthForm';
+// import AuthForm from './components/AuthForm';
+// import OAuth2RedirectHandler from "./pages/OAuth2RedirectHandler.jsx";
 
 export default function App() {
   const role = sessionStorage.getItem('role') // 'user' or 'seller'
@@ -43,9 +44,10 @@ export default function App() {
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
         <Route path="/myCheer" element={<MyCheer />}></Route>
-        <Route path="/auth" element={<AuthForm />} />
+        {/* <Route path="/auth" element={<AuthForm />} /> */}
         <Route path="/stories/:storyId" element={<StoryDetailPage />} />
         <Route path="/mysupports" element={<MySupportsPage />} />
+        {/* <Route path="/oauth2/redirect/:provider" element={<OAuth2RedirectHandler />} /> */}
       </Routes>
       )
     }
