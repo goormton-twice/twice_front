@@ -1,7 +1,7 @@
 import React from "react";
 import Bookmark from "./Bookmark";
 import Button from "./Button";
-import Likes from "./likes";
+import Likes from "./Likes";
 import "./StoryInput.css";
 const StoryInput = (props) => {
   const {

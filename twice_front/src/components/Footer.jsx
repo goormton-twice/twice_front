@@ -5,7 +5,7 @@ import PersonalCheerImg from "./PersonalCheerImg";
 import PopularCheerImg from './PopularCheerImg';
 import "./Footer.css";
 import { useNavigate, useLocation } from 'react-router-dom';
-import Likes from "./likes";
+import Likes from "./Likes";
 
 const Footer = () => {
   const navigate = useNavigate();
