@@ -12,7 +12,7 @@ export default function CategoryDetailPage() {
     async function fetchRandomCheer() {
       setLoading(true);
       try {
-        // 예시: category="fighting", userNumber=1
+        // category="fighting", userNumber=1
         const cheerData = await getRandomCheer("fighting", 1);
         setCheer(cheerData);
       } catch (e) {

@@ -45,7 +45,7 @@ export default function App() {
         <Route path="/myCheer" element={<MyCheer />}></Route>
         <Route path="/auth" element={<AuthForm />} />
         <Route path="/stories/:storyId" element={<StoryDetailPage />} />
-        <Route path="/my-supports" element={<MySupportsPage />} />
+        <Route path="/mysupports" element={<MySupportsPage />} />
       </Routes>
       )
     }

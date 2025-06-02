@@ -96,41 +96,67 @@ export default function Home() {
     setShowInputBar(false);
   };
 
-  const Card = ({ story, cheer, isMain, onClick, side }) => (
-    <motion.div
-      className={`carousel-card ${isMain ? "main" : "side " + side}`}
-      style={{ zIndex: isMain ? 10 : 1, cursor: "pointer" }}
-      animate={
-        isMain
-          ? { x: 0, scale: 1, opacity: 1, filter: "none" }
-          : side === "left"
-          ? { x: "-260px", scale: 0.87, opacity: 0.6, filter: "blur(1.5px)" }
-          : { x: "260px", scale: 0.87, opacity: 0.6, filter: "blur(1.5px)" }
-      }
-      transition={{ type: "spring", stiffness: 220, damping: 30 }}
-      onClick={() => {
-        if (!isMain) onClick();
-      }}
-    >
-      <div className="card-story-wrapper">
-        <div className="card-story-header">
-          <img src="/avatars/default.png" alt={story.username} className="card-story-avatar" />
-          <span className="card-story-username">{story.username}</span>
-          <span className="card-story-date">{new Date(story.createdAt).toLocaleDateString()}</span>
-        </div>
-        <div className="card-story-content">{story.content}</div>
+const Card = ({ story, cheer, isMain, onClick, side }) => (
+  <motion.div
+    className={`carousel-card ${isMain ? "main" : "side " + side}`}
+    style={{ zIndex: isMain ? 10 : 1, cursor: "pointer" }}
+    animate={
+      isMain
+        ? { x: 0, scale: 1, opacity: 1, filter: "none" }
+        : side === "left"
+        ? { x: "-260px", scale: 0.87, opacity: 0.6, filter: "blur(1.5px)" }
+        : { x: "260px", scale: 0.87, opacity: 0.6, filter: "blur(1.5px)" }
+    }
+    transition={{ type: "spring", stiffness: 220, damping: 30 }}
+    onClick={() => {
+      if (!isMain) onClick();
+    }}
+  >
+    <div className="card-story-wrapper">
+      <div className="card-story-header">
+        {/* story.username이 최상위 필드이므로, 이렇게 접근합니다 */}
+        <img
+          src="/avatars/default.png"
+          alt={story.username}
+          className="card-story-avatar"
+        />
+        <span className="card-story-username">{story.username}</span>
+        <span className="card-story-date">
+          {story.createdAt
+            ? new Date(story.createdAt).toLocaleDateString()
+            : ""}
+        </span>
       </div>
+      <div className="card-story-content">{story.content}</div>
+    </div>
 
-      <div className="card-cheer-wrapper">
-        <div className="card-cheer-header">
-          <img src="/avatars/default.png" alt={cheer.user.username} className="card-cheer-avatar" />
-          <span className="card-cheer-username">{cheer.user.username}</span>
-          <span className="card-cheer-date">{new Date(cheer.createdAt).toLocaleDateString()}</span>
-        </div>
-        <div className="card-cheer-content">{cheer.content}</div>
+    <div className="card-cheer-wrapper">
+      <div className="card-cheer-header">
+        {/* cheer 객체의 형태를 콘솔로 확인한 뒤, cheer.username 혹은 cheer.user.username 처리를 합니다. 
+            예를 들어 getCheersByStoryId가 아래와 같은 형태라면:
+            { content: "...", createdAt: "...", user: { username: "홍길동", profileImageUrl: "..." } }
+            └→ cheer.user.username 으로 가져오고, 
+            만약 { username: "...", profileImageUrl: "...", content: "...", createdAt: "..." } 형태라면 cheer.username 으로 가져와야 합니다.
+        */}
+        <img
+          src={cheer.user?.profileImageUrl || "/avatars/default.png"}
+          alt={cheer.user?.username || "cheerup"}
+          className="card-cheer-avatar"
+        />
+        <span className="card-cheer-username">
+          {cheer.user?.username ?? cheer.username ?? "cheerup"}
+        </span>
+        <span className="card-cheer-date">
+          {cheer.createdAt
+            ? new Date(cheer.createdAt).toLocaleDateString()
+            : ""}
+        </span>
       </div>
-    </motion.div>
-  );
+      <div className="card-cheer-content">{cheer.content}</div>
+    </div>
+  </motion.div>
+);
+
 
   return (
     <div className="carousel-container" {...handlers}>
