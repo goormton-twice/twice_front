@@ -53,14 +53,14 @@ return (
                         onChange={(e) => setPassword(e.target.value)}
                         className="input-field"
                     />
-                    <button
+                    {/* <button
                         type="button"
                         className={styles.eyeBtn}
                         tabIndex={-1}
                         onClick={() => setShowPw2((v) => !v)}
                         >
                         <img src={showPw ? "/eye_on.svg" : "/eye_off.svg"} alt="비밀번호 표시" />
-                    </button>
+                    </button> */}
                 </div>
                 <button type="submit" className="login-button">로그인</button>
             </form>

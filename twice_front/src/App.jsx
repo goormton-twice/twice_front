@@ -28,7 +28,6 @@ export default function App() {
 
   return (  
       <Routes>
-        <Route path="/" element={<Navigate to="/signin" replace />} />
         <Route path="/home" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<Signup />} />
