@@ -29,7 +29,7 @@ export default function App() {
   return (  
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<UserProfile />} />
