@@ -18,6 +18,21 @@ export const getPopularStories = async (size = 10) => {
   return res.data.data;
 };
 
+// 사연 작성하기 (응원함 생성)
+export const postStory = async ({content, categoryId}) => {
+  try{
+    const response = await api.post('/stories/create', {
+    content,
+    categoryId
+  });
+    return response.data;
+  }
+  catch(error) {
+    console.error("응원함 생성 실패:", error);
+    throw error;
+  }
+};
+
 export const getStoryById = async (storyId) => {
   const response = await api.get(`/stories/${storyId}`);
   return response.data.data;
