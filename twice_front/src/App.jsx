@@ -22,7 +22,6 @@ import WriteCheer from './pages/WriteCheer.jsx'
 import MyCheer from './pages/MyCheer.jsx'
 import AuthForm from './components/AuthForm';
 import PersonalCheerDetail from './pages/PersonalCheerDetail.jsx'
-
 export default function App() {
   const role = sessionStorage.getItem('role') // 'user' or 'seller'
   const Layout = role === 'user' ? MobileLayout : DesktopLayout
@@ -45,9 +44,10 @@ export default function App() {
         <Route path="/personalCheer/:id" element={<PersonalCheerDetail />} />
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
         <Route path="/myCheer" element={<MyCheer />}></Route>
-        <Route path="/auth" element={<AuthForm />} />
+        {/* <Route path="/auth" element={<AuthForm />} /> */}
         <Route path="/stories/:storyId" element={<StoryDetailPage />} />
         <Route path="/mysupports" element={<MySupportsPage />} />
+        {/* <Route path="/oauth2/redirect/:provider" element={<OAuth2RedirectHandler />} /> */}
       </Routes>
       )
     }
