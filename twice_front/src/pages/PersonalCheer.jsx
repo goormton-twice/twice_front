@@ -1,16 +1,16 @@
 import React, { use } from "react";
 
 import { useState } from "react";
-import Profile from "../components/Profile";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Rock from "../components/Rock";
 import Footer from "../components/Footer";
 import { useNavigate } from 'react-router-dom';
+import Profile from '../components/profile';
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);
-  const [isFiltered, setIsFiltered] = useState(true);
+  const [isFiltered, setIsFiltered] = useState(false);
   const navigate = useNavigate();
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
@@ -20,6 +20,8 @@ const PersonalCheer = () => {
       setSelectedTag(tag);
     }
   };
+  const handleClick = (id) => {
+    navigate(`/personalCheerDetail/${id}`);}
   const posts = [
     {
       id: 1,
@@ -74,7 +76,7 @@ const PersonalCheer = () => {
           stroke="rgba(152, 108, 233, 1)"
           fill="rgba(247, 243, 255, 1)"
           onClick = {() => navigate('/mypage')}
-        >;</Profile>
+        ></Profile>
       </div>
       <div
         style={{
@@ -173,6 +175,7 @@ const PersonalCheer = () => {
               hasLikes={post.hasLikes}
               style={post.style}
               Tag={post.tag}
+              onClic={() => handleClick(post.id)}
             >
               {
                 <div>
