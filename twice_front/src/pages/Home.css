@@ -5,7 +5,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  padding: 13%;
+  padding: 0%;
   box-sizing: border-box;
   background: linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%);
   overflow: hidden;
@@ -151,7 +151,6 @@
   font-family: 'Inter', sans-serif;
   font-weight: 300;
   font-size: 12px;                    /* 14px (Figma 명세) */
-  margin-left: 10px;
   line-height: 17px;
   color: #000000;
   flex: none;
@@ -239,7 +238,6 @@
   font-size: 12px;                    /* 14px (Figma 명세) */
   line-height: 17px;
   color: #000000;
-  margin-left: 10px;
   flex: none;
   order: 1;
   flex-grow: 0;
@@ -276,7 +274,6 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  margin-bottom: 10px;
 }
 
 
@@ -290,9 +287,8 @@
   width: 230px;
   height: 43px;
   /* 부모 컨테이너(예: 카드)의 가로 중앙, 세로 원하는 위치에 맞춰 조정하세요 */
-  
-  top: 550px;
-  left: 50px;
+  left: 45px;
+  top: calc(50% - 43px/2 + 235.5px);
 
   display: flex;
   flex-direction: row;

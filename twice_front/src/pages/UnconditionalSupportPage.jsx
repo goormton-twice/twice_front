@@ -29,7 +29,7 @@ export default function UnconditionalSupportPage() {
 
   return (
     <div className="uncond-container">
-      <h1 className="uncond-title" >무조건 응원함</h1>
+      <h1 className="uncond-title">무조건 응원함</h1>
       <p className="uncond-subtitle">
         응원 받고 싶은 <br></br>
         카테고리를 선택해주세요
