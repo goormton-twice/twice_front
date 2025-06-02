@@ -6,7 +6,7 @@ import StoryInput from "../components/StoryInput";
 import Rock from "../components/Rock";
 import Footer from "../components/Footer";
 import { useNavigate } from 'react-router-dom';
-import Profile from '../components/profile';
+import Profile from '../components/Profile';
 import { getMyStories } from '../api/storyApi';
 
 const PersonalCheer = () => {
