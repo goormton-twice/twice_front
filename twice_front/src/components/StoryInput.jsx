@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Bookmark from "./bookmark";
 import Button from "./Button";
-import Likes from "./likes";
+import Likes from "./Likes";
 import "./StoryInput.css";
 import Setting from './Setting';
 import Report from './Report';

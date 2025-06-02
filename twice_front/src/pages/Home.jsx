@@ -6,8 +6,8 @@ import InputBar from "../components/InputBar";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi";
 import { getRandomStories, getPopularStories } from "../api/storyApi";
 import { getUserInfo } from "../api/userApi";
-import BottomNav from "../components/BottomNav";
 import "./Home.css";
+import Footer from "../components/Footer";
 
 const getIdx = (idx, len) => ((idx % len) + len) % len;
 
@@ -159,9 +159,10 @@ const Card = ({ story, cheer, isMain, onClick, side }) => (
 
 
   return (
+    <div style={{ width: "100%", height: "100%" }}>
     <div className="carousel-container" {...handlers}>
       <div style={{ width: "100%", marginBottom: "32px" }}>
-        <div className="page-logo">cheerup</div>
+        <img src="/logo.svg"></img>
         <div className="page-instruction">
           <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 10 }}>
             {nickname} 님 안녕하세요
@@ -195,6 +196,7 @@ const Card = ({ story, cheer, isMain, onClick, side }) => (
           />
         </svg>
       </button>
+      
 
       {showInputBar && (
         <InputBar onSubmit={onInputSubmit} onCancel={() => setShowInputBar(false)} />
@@ -206,5 +208,7 @@ const Card = ({ story, cheer, isMain, onClick, side }) => (
         />
       )}
     </div>
+    <Footer />
+  </div>
   );
 }

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { use } from "react";
 
 import { useState } from "react";
-import Profile from "../components/profile";
+import Profile from "../components/Profile";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Rock from "../components/Rock";
 import Footer from "../components/Footer";
+import { useNavigate } from 'react-router-dom';
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);
   const [isFiltered, setIsFiltered] = useState(true);
+  const navigate = useNavigate();
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
     if (selectedTag === tag) {
@@ -71,7 +73,8 @@ const PersonalCheer = () => {
         <Profile
           stroke="rgba(152, 108, 233, 1)"
           fill="rgba(247, 243, 255, 1)"
-        />
+          onClick = {() => navigate('/mypage')}
+        >;</Profile>
       </div>
       <div
         style={{
