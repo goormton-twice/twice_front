@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Button from "../components/Button";
 import Category from "../components/Category";
 import Footer from "../components/Footer";
 import styled from "styled-components";
+import { postStory } from '../api/storyApi';
 
 const TextArea = styled.textarea`
   &::placeholder {
@@ -27,6 +28,7 @@ const WriteCheer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
@@ -38,22 +40,15 @@ const WriteCheer = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch('https://api.cheer-up.net/api/stories/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: content
+        const result = await postStory( {
+          content: content,
+          categoryId: selectedId
         })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
+        setIsEnrolled(true); 
         console.log('응답 데이터:', result);
-      } else {
-        throw new Error('전송 실패');
-      }
+        setTimeout(() => setIsEnrolled(false), 2000); 
+        setContent('');
+        setSelectedId(null);
     } catch (error) {
       console.error('Error는', error);
       alert('오류가 발생했습니다: ' + error.message);
@@ -80,7 +75,7 @@ const WriteCheer = () => {
   }
 };
   return (
-    <div>
+    <div style={{ width: "100%", height: "100vh", background:"linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)" }}>
       <div
         style={{
           display: "flex",
@@ -89,7 +84,7 @@ const WriteCheer = () => {
         }}
       >
         <div style={{ fontSize: "24px", fontWeight: "600" }}>
-          닉네임 님의 <span style={{ color: "" }}>사연</span>을 <br />
+          닉네임 님의 <span style={{ color: "rgba(152, 108, 233, 1)" }}>사연</span>을 <br />
           들려주세요
         </div>
         <div style={{ height: "30px" }} />
@@ -100,12 +95,14 @@ const WriteCheer = () => {
             gap: "5px",
             marginBottom: "30px",
           }}
+          onSubmit={handleSubmit}
         >
           <label style={{ marginBottom: "10px", fontWeight: "500" }}>
             당신의 사연은 무엇인가요?
           </label>
           <TextArea value={content} onChange={(e) => setContent(e.target.value)} disabled={isLoading} placeholder="나의 사연 남기기" />
           <Button
+            type="submit"
             style={{
               position: "fixed",
               bottom: "220px",
@@ -119,7 +116,7 @@ const WriteCheer = () => {
               gap:"5px",
               padding: "10px 15px",
             }}
-            onClick={handleSubmit}
+            
           >
             {isEnrolled && <div>✓</div>}
             등록하기
