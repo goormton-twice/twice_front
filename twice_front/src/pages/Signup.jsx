@@ -1,6 +1,49 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { signupUser } from "../api/userApi";
 import styles from "./Signup.module.css";
+import EmailResult from "./EmailResult";
+
+export function EmailAuthPage() {
+  const [popupMsg, setPopupMsg] = useState("");
+
+  // "여기" 클릭 시
+  const handleResend = () => {
+    // 실제 메일 재발송 API 호출하는 곳
+    setPopupMsg("hanhee@gmail.com 로 인증 메일을 재발송하였습니다.");
+  };
+
+  return (
+    <EmailResult
+      icon="/mail_icon.svg"
+      title={<><span style={{ fontWeight: 500 }}>hanhee@gmail.com</span> <br />로 인증 메일이 발송되었습니다.</>}
+      desc={<>메일 내에 있는 인증 버튼을 클릭하신 뒤<br />아래 인증 확인 버튼을 눌러 주세요.</>}
+      buttonText="인증 확인"
+      onButtonClick={() => {
+        // 인증 확인 시 처리
+      }}
+      subInfo="메일 재발송이 필요하시면, 여기를 눌러주세요."
+      subLinkLabel="여기"
+      onSubLinkClick={handleResend}
+      popupMsg={popupMsg}
+      setPopupMsg={setPopupMsg}
+    />
+  );
+}
+
+// 회원가입 완료 예시
+export function SignupSuccessPage({ nickname }) {
+  return (
+    <EmailResult
+      icon="/heart_icon.svg"
+      title="회원가입이 성공적으로 완료되었습니다."
+      desc={<>{nickname}님의 하루를<br />응원하러 갈 시간이에요!</>}
+      buttonText="홈으로 이동하기"
+      onButtonClick={() => {
+        window.location.href = "/"; // 예시
+      }}
+    />
+  );
+}
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -44,17 +87,13 @@ export default function SignUp() {
     }
 
     try {
-      await axios.post("https://api.cheer-up.net/api/users/signup", {
-        username: form.nickname,
-        email: form.email,
-        password: form.password,
-        role: "USER", // 필요 시 다른 역할로 변경 가능
-      });
+      await signupUser(form.nickname, form.email, form.password, "USER");
 
       alert("회원가입 성공! 로그인해주세요.");
       // 이후 로그인 페이지로 이동 등 처리 가능
       window.location.href = "/signin";
-    } catch (err) {
+    } 
+    catch (err) {
       setError(
         err.response?.data?.message || "회원가입 중 오류가 발생했습니다."
       );
@@ -68,6 +107,7 @@ export default function SignUp() {
 
         {/* 닉네임 */}
         <div className={styles.inputGroup}>
+          <div className={styles.inputWithIcon}>
           <input
             className={styles.input}
             type="text"
@@ -77,11 +117,15 @@ export default function SignUp() {
             onChange={handleChange}
             maxLength={20}
           />
-          <div className={styles.inputHint}>최소 2자 이상, 최대 20자</div>
+          </div>
+          <div className={styles.inputHint}>최소 2자 이상, 최대 20자
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         </div>
 
         {/* 이메일 */}
         <div className={styles.inputGroup}>
+          <div className={styles.inputWithIcon}>
           <input
             className={styles.input}
             type="email"
@@ -90,6 +134,7 @@ export default function SignUp() {
             value={form.email}
             onChange={handleChange}
           />
+        </div>
         </div>
 
         {/* 비밀번호 */}
@@ -111,13 +156,10 @@ export default function SignUp() {
               tabIndex={-1}
               onClick={() => setShowPw((v) => !v)}
             >
-              <span className="material-icons" style={{ fontSize: 20, color: "#9A9A9A" }}>
-                {showPw ? "visibility" : "visibility_off"}
-              </span>
+              <img src={showPw ? "/eye_on.svg" : "/eye_off.svg"} alt="비밀번호 표시" />
             </button>
           </div>
-          <div className={styles.inputHint}>최소 8자 이상 최대 30자 이하</div>
-          <div className={styles.inputHint}>영문/숫자/특수기호 중, 2가지 이상 포함</div>
+          <div className={styles.inputHint}>최소 8자 이상 최대 30자 이하<br></br>영문/숫자/특수기호 중, 2가지 이상 포함</div>
         </div>
 
         {/* 비밀번호 확인 */}
@@ -139,9 +181,7 @@ export default function SignUp() {
               tabIndex={-1}
               onClick={() => setShowPw2((v) => !v)}
             >
-              <span className="material-icons" style={{ fontSize: 20, color: "#9A9A9A" }}>
-                {showPw2 ? "visibility" : "visibility_off"}
-              </span>
+              <img src={showPw ? "/eye_on.svg" : "/eye_off.svg"} alt="비밀번호 표시" />
             </button>
           </div>
         </div>
@@ -159,10 +199,7 @@ export default function SignUp() {
           해당 계정은 통합회원으로 웹사이트와 어플에서 제공하는 서비스를 모두 이용하실 수 있습니다. 가입 시, 통합 계정 및 서비스 이용약관, 개인정보 처리방침에 동의하는 것으로 간주합니다.
         </div>
       </form>
-
-      {/* cheerup 로고 */}
-      <div className={styles.cheerupLogo}>cheerup</div>
-      <div className={styles.homeIndicator}></div>
+      <div className={styles.logo}><img src="/signuplogo.svg" alt="cheerup logo" /></div>
     </div>
   );
 }

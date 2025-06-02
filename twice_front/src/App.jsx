@@ -46,6 +46,7 @@ export default function App() {
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
         <Route path="/myCheer" element={<MyCheer />}></Route>
         <Route path="/auth" element={<AuthForm />} />
+        <Route path="/stories/:storyId" element={<StoryDetailPage />} />
       </Routes>
       )
     }

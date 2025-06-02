@@ -1,16 +1,15 @@
-// src/pages/Home.jsx
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
-import { ChevronUp } from "lucide-react";
 import HomeSendCheer from "../components/HomeSendCheer";
 import InputBar from "../components/InputBar";
-import { getRandomStories } from "../api/storyApi"; // 불러오기
-
-//import { getRandomStories, getCheersByStoryId, postCheer } from "../api/cheerApi";
+import { getCheersByStoryId, postCheer } from "../api/cheerApi";
+import { getRandomStories, getPopularStories } from "../api/storyApi";
+import { getUserInfo } from "../api/userApi";
 import "./Home.css";
 
 const getIdx = (idx, len) => ((idx % len) + len) % len;
+
 
 export default function Home() {
   const [index, setIndex] = useState(0);
@@ -18,6 +17,8 @@ export default function Home() {
   const [showInputBar, setShowInputBar] = useState(false);
   const [stories, setStories] = useState([]);
   const [cheers, setCheers] = useState([]);
+  const [nickname, setNickname] = useState("익명");
+  const [lastCheeredStoryId, setLastCheeredStoryId] = useState(null);
 
   const len = stories.length;
   const prev = getIdx(index - 1, len);
@@ -35,52 +36,56 @@ export default function Home() {
     delta: 10,
   });
 
-  const handleCheerClick = () => {
-    setShowInputBar(true);
-  };
+  const handleCheerClick = () => setShowInputBar(true);
 
+  // 유저 정보 & 스토리 동시 fetch
+  useEffect(() => {
+    async function fetchAll() {
+      try {
+        // 유저 정보
+        const user = await getUserInfo();
+        setNickname(user.nickname);
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const fetchedStories = await getRandomStories(3);
-      console.log("📦 받아온 스토리:", fetchedStories); // 디버그
-      setStories(fetchedStories);
+        // 인기 응원함 3개 불러오기 (랜덤으로 바꾸고 싶으면 getRandomStories 사용)
+        const fetchedStories = await getPopularStories(3);
+        setStories(fetchedStories);
 
-      const cheersList = await Promise.all(
-        fetchedStories.map(async (story) => {
-          const cheerMessages = await getCheersByStoryId(story.storyId);
-          console.log("📨 응원 메시지:", cheerMessages); // 디버그
-          return cheerMessages[0] || {
-            content: "아직 응원이 없어요 😢",
-            createdAt: new Date().toISOString(),
-            user: {
-              username: "cheerup",
-              profileImageUrl: "/avatars/default.png",
-            },
-          };
-        })
-      );
-      setCheers(cheersList);
-    } catch (err) {
-      console.error("응원 게시글 불러오기 실패:", err);
+        // 각 스토리별 첫 번째 응원 메시지 가져오기
+        const cheersList = await Promise.all(
+          fetchedStories.map(async (story) => {
+            const cheerMessages = await getCheersByStoryId(story.storyId);
+            return cheerMessages[0] || {
+              content: "아직 응원이 없어요",
+              createdAt: new Date().toISOString(),
+              user: {
+                username: "cheerup",
+                profileImageUrl: "/avatars/default.png",
+              },
+            };
+          })
+        );
+        setCheers(cheersList);
+      } catch (err) {
+        setNickname("익명");
+        setStories([]);
+        setCheers([]);
+        console.error("데이터 불러오기 실패:", err);
+      }
     }
-  };
-
-  fetchData();
-}, []);
-
+    fetchAll();
+  }, []);
 
   const onInputSubmit = async (textValue) => {
     const currentStory = stories[index];
-    const storyId = currentStory.storyId;
+    if (!currentStory) return;
 
     await postCheer({
-      storyId,
+      storyId: currentStory.storyId,
       content: textValue,
       category: "기타",
     });
 
+    setLastCheeredStoryId(currentStory.storyId);
     setShowInputBar(false);
     setTimeout(() => setShowCheerPopup(true), 150);
   };
@@ -131,7 +136,9 @@ useEffect(() => {
       <div style={{ width: "100%", marginBottom: "32px" }}>
         <div className="page-logo">cheerup</div>
         <div className="page-instruction">
-          <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 10 }}>닉네임 님 안녕하세요</div>
+          <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 10 }}>
+            {nickname} 님 안녕하세요
+          </div>
           <div style={{ fontWeight: 600, fontSize: 15, color: "#222", marginTop: 4 }}>
             응원 3개를 보내고 당신의 사연을 써보세요
           </div>
@@ -165,7 +172,12 @@ useEffect(() => {
       {showInputBar && (
         <InputBar onSubmit={onInputSubmit} onCancel={() => setShowInputBar(false)} />
       )}
-      {showCheerPopup && <HomeSendCheer onClose={onCloseCheerPopup} />}
+      {showCheerPopup && (
+      <HomeSendCheer 
+        onClose={onCloseCheerPopup} 
+        storyId={lastCheeredStoryId}
+        />
+      )}
     </div>
   );
 }

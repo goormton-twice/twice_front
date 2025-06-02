@@ -20,7 +20,7 @@ export default function LoginPage() {
       navigate('/home'); // 혹은 원하는 페이지로
     } 
     catch (error) {
-      console.error('❌ 로그인 실패:', error);
+      console.error('로그인 실패:', error);
       alert('이메일 또는 비밀번호를 확인해주세요.');
     }
   };
@@ -29,11 +29,16 @@ export default function LoginPage() {
     window.location.href = 'https://api.cheer-up.net/api/users/oauth2/google';
   };
 
+  const handleNaverLogin = () => {
+    window.location.href = 'https://api.cheer-up.net/api/users/oauth2/naver';
+  };
+
   return (
     <div className="login-container">
-      <div className="background-image" />
       <div className="content-wrapper">
-        <img src="../icons/logo.svg" alt="cheerup logo" className="logo-image" />
+        <div className="logo">
+          <img src="/signinlogo.svg" alt="logo" />
+        </div>
         <p className="subtitle">당신의 하루에 작은 <br />응원을 담아요</p>
 
         <form className="login-form" onSubmit={handleLogin}>
@@ -73,10 +78,10 @@ export default function LoginPage() {
           </div>
           <div className="sns-buttons">
             <button onClick={handleGoogleLogin} className="sns-btn google">
-              <img src="/icons/google.svg" alt="google" />
+              <img src="/google.svg" alt="google" />
             </button>
-            <button className="sns-btn kakao">
-              <img src="/icons/kakao.svg" alt="kakao" />
+            <button onClick={handleNaverLogin} className="sns-btn google">
+              <img src="/naver.svg" alt="naver" />
             </button>
           </div>
         </div>
