@@ -11,13 +11,13 @@ import SignIn from './pages/SignIn.jsx'
 import Signup from './pages/Signup.jsx'
 import Cart from './pages/Cart.jsx'
 import UserProfile from './pages/UserProfile.jsx'
-import WriteStoryPage from './pages/WriteStoryPage.jsx'
 import UnconditionalSupportPage from './pages/UnconditionalSupportPage.jsx'
 import CategoryDetailPage1 from './pages/CategoryDetailPage1.jsx'
 import CategoryDetailPage2 from './pages/CategoryDetailPage2.jsx'
 import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
 import StoryDetailPage from './pages/StoryDetailPage.jsx'
 import MyPage from './pages/MyPage.jsx'
+import MySupportsPage from "./pages/MySupportsPage";
 import WriteCheer from './pages/WriteCheer.jsx'
 import MyCheer from './pages/MyCheer.jsx'
 import AuthForm from './components/AuthForm';
@@ -33,10 +33,8 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/write" element={<WriteStoryPage />} />
         <Route path="/support" element={<UnconditionalSupportPage />} />
         <Route path="/support/kind" element={<CategoryDetailPage1 />} />
-        <Route path="/support/story" element={<StoryDetailPage />} />
         <Route path="/support/warm" element={<CategoryDetailPage2 />} />
         <Route path="/support/power" element={<CategoryDetailPage3 />} />
         <Route path="/mypage" element={<MyPage />} />
@@ -46,6 +44,8 @@ export default function App() {
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
         <Route path="/myCheer" element={<MyCheer />}></Route>
         <Route path="/auth" element={<AuthForm />} />
+        <Route path="/stories/:storyId" element={<StoryDetailPage />} />
+        <Route path="/my-supports" element={<MySupportsPage />} />
       </Routes>
       )
     }

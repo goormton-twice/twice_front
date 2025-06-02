@@ -1,139 +1,67 @@
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import './CategoryDetailPage.css'
-import Arrow from '../components/Arrow.jsx'
-import Modal from '../components/Modal.jsx'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getRandomCheer } from '../api/cheerApi';
+import './CategoryDetailPage.css';
 
 export default function CategoryDetailPage() {
-  const { category } = useParams()
-  const navigate = useNavigate()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  
-  // 응원 개수 (실제로는 props나 API에서 받아올 값)
-  const supportCount = 3 // 예시값
-  const minSupportCount = 3 // 최소 필요 응원 개수
-  
-  const handleCardClick = () => {
-    setIsModalOpen(true)
-  }
+  const navigate = useNavigate();
+  const [cheer, setCheer] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleWriteStory = (e) => {
-    e.stopPropagation()
-    navigate('/write')
-  }
+  useEffect(() => {
+    async function fetchRandomCheer() {
+      setLoading(true);
+      try {
+        // 예시: category="fighting", userNumber=1
+        const cheerData = await getRandomCheer("fighting", 1);
+        setCheer(cheerData);
+      } catch (e) {
+        console.error(e);
+        setCheer(null);
+      }
+      setLoading(false);
+    }
+    fetchRandomCheer();
+  }, []);
 
-  const handleViewSupport = () => {
-    setIsModalOpen(false)
-    navigate('/support/story')
-  }
+  // 날짜 포맷
+  const dateStr = cheer?.createdAt
+    ? new Date(cheer.createdAt).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' }).replace('. ', '.').replace('.', '')
+    : '';
 
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
-
-  const isButtonDisabled = supportCount < minSupportCount
+  if (loading) return <div>Loading...</div>;
+  if (!cheer) return <div>응원 메시지를 불러올 수 없습니다.</div>;
 
   return (
-    <div className="category-detail-container">
-      <header className="category-detail-header">
-        <button className="back-button" onClick={() => navigate('/support')}>
-          <Arrow />
-        </button>
-        <h1 className="category-detail-title">무조건 응원함</h1>
-      </header>
-
-      <main className="category-detail-main">
-        <p className="category-detail-subtitle">
-          "내 편 좀 들어줘"에 대한 응원이에요
-        </p>
-
-        <div
-          className="category-detail-card"
-          onClick={handleCardClick}
-          style={{ cursor: 'pointer' }}
+    <div className="category-detail-wrapper">
+      <div className="category-detail-title">무조건 응원함</div>
+      <div className="category-detail-subtitle">
+        “내 편 좀 들어줘”에 대한 응원이에요
+      </div>
+      <div className="category-detail-card">
+        <div className="card-header">
+          <div className="card-avatar">
+            <div className="avatar-placeholder"></div>
+          </div>
+          <span className="card-username">{cheer.username || '익명'}</span>
+          <span className="card-date">{dateStr}</span>
+        </div>
+        <div className="card-content collapsed">{cheer.content}</div>
+        <button
+          className="view-support-button"
+          onClick={() => cheer.storyId && navigate(`/stories/${cheer.storyId}`)}
+          disabled={false}
         >
-          <div className="user-info">
-            <div className="user-avatar">닉네임</div>
-            <span className="user-name">닉네임</span>
-            <span className="user-date">05.16</span>
+          <span className="view-support-text">응원에 대한 사연 보러 가기</span>
+          <div className="view-support-icon">
+            {/* SVG 아이콘 */}
+            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12.5H19M19 12.5L12 5.5M19 12.5L12 19.5"
+              stroke="#656565" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
-
-          <div className="support-content collapsed">
-            나 여기 있어. 괜찮아, 오늘은 그냥 나한테 기대도 돼. 
-            아무 말 안 해도 돼. 너한테 꼭 해주고 싶은 말은 이거야. 
-            너가 누구보다 열심히 살아오고 있다는 거 알아. 
-            잠깐 멈춰서 쉬는 것도, 울고 싶은 것도 다 괜찮은 일이야. 
-            그리고 너, 정말 괜찮은 사람이야.
-            <br /><br />
-            이 순간도 결국 지나가고, 나는 그 끝에서 너가 다시 웃을 수 있을 거라는 걸 믿어. 
-            너 혼자 아니야. 나 계속 옆에 있을게.
-            <br /><br />
-            시 옷을 수 있을 거라는 걸 믿어. 너 혼자 아니야.
-          </div>
-
-          <button
-            className="toggle-button"
-            onClick={(e) => {
-              e.stopPropagation()
-              handleCardClick()
-            }}
-          >
-            ...더보기
-          </button>
-
-          <div className="detail-actions">
-            <button
-              className={`write-story-button ${isButtonDisabled ? 'disabled' : ''}`}
-              onClick={handleWriteStory}
-              disabled={isButtonDisabled}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-            >
-              나의 사연 쓰고 응원받으러 가기
-              {isButtonDisabled && (
-                <img
-                  src="../icons/lock.png"
-                  alt="잠금"
-                  style={{ width: '20px', height: '20px', marginLeft: '8px' }}
-                />
-              )}
-            </button>
-
-          </div>
-        </div>
-      </main>
-
-      {/* 모달 팝업 */}
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <div className="modal-card">
-          <div className="user-info">
-            <div className="user-avatar">닉네임</div>
-            <span className="user-name">닉네임</span>
-            <span className="user-date">05.16</span>
-          </div>
-
-          <div className="support-content expanded">
-            나 여기 있어. 괜찮아, 오늘은 그냥 나한테 기대도 돼. 
-            아무 말 안 해도 돼. 너한테 꼭 해주고 싶은 말은 이거야. 
-            너가 누구보다 열심히 살아오고 있다는 거 알아. 
-            잠깐 멈춰서 쉬는 것도, 울고 싶은 것도 다 괜찮은 일이야. 
-            그리고 너, 정말 괜찮은 사람이야.
-            <br /><br />
-            이 순간도 결국 지나가고, 나는 그 끝에서 너가 다시 웃을 수 있을 거라는 걸 믿어. 
-            너 혼자 아니야. 나 계속 옆에 있을게.
-            <br /><br />
-            시 옷을 수 있을 거라는 걸 믿어. 너 혼자 아니야.
-          </div>
-
-          <div className="modal-actions">
-            <button
-              className="view-support-button"
-              onClick={handleViewSupport}
-            >
-              응원에 대한 사연 보러가기 →
-            </button>
-          </div>
-        </div>
-      </Modal>
+        </button>
+      </div>
     </div>
-  )
+  );
 }

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import './SignIn.css';
 import { loginUser } from '../api/userApi';
 import { useNavigate } from 'react-router-dom';
+import NaverLoginButton from "../components/NaverLoginButton";
+import GoogleLoginButton from "../components/GoogleLoginButton";
+import KakaoLoginButton from "../components/KakaoLoginButton";
+
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -20,20 +24,17 @@ export default function LoginPage() {
       navigate('/home'); // 혹은 원하는 페이지로
     } 
     catch (error) {
-      console.error('❌ 로그인 실패:', error);
+      console.error('로그인 실패:', error);
       alert('이메일 또는 비밀번호를 확인해주세요.');
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'https://api.cheer-up.net/api/users/oauth2/google';
-  };
-
   return (
     <div className="login-container">
-      <div className="background-image" />
       <div className="content-wrapper">
-        <img src="../icons/logo.svg" alt="cheerup logo" className="logo-image" />
+        <div className="logo">
+          <img src="/signinlogo.svg" alt="logo" />
+        </div>
         <p className="subtitle">당신의 하루에 작은 <br />응원을 담아요</p>
 
         <form className="login-form" onSubmit={handleLogin}>
@@ -72,12 +73,9 @@ export default function LoginPage() {
             <span className="line" />
           </div>
           <div className="sns-buttons">
-            <button onClick={handleGoogleLogin} className="sns-btn google">
-              <img src="/icons/google.svg" alt="google" />
-            </button>
-            <button className="sns-btn kakao">
-              <img src="/icons/kakao.svg" alt="kakao" />
-            </button>
+            <NaverLoginButton />
+            <GoogleLoginButton />
+            <KakaoLoginButton />
           </div>
         </div>
       </div>

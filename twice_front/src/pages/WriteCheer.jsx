@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useRef, useState } from 'react';
 import Button from "../components/Button";
 import Category from "../components/Category";

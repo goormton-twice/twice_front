@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
