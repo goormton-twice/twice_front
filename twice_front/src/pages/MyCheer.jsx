@@ -1,33 +1,27 @@
+import { useNavigate } from 'react-router-dom';
+import { getMyStories } from '../api/storyApi';
 import Arrow from "../components/Arrow";
 import Footer from "../components/Footer";
 import StoryInput from "../components/StoryInput";
-import React, { useEffect } from "react";
+import React, {useEffect, useState } from "react";
+import Setting from '../components/Setting';
+import SettingBtn from '../components/SettingBtn';
 const MyCheer = () => {
-  useEffect(async () => {
-    try{
-      const cheers = await getMyStories();
-      console.log("내 응원함 목록:", cheers);
-      
+  const navigate = useNavigate();
+  const [cheers, setCheers] = useState([]);
+  useEffect(() => {
+    async function fetchMyStories() {
+      try {
+        const response = await getMyStories();
+        setCheers(response)
+        console.log("나의 사연:", response);
+      } catch (error) {
+        console.error("나의 사연을 불러오는 중 오류 발생:", error);
+      }
     }
-    catch(e){
-      console.error("Error fetching stories:", e);
-    }
-  },[])
-  const cheers = [
-    {
-      id: 1,
-      hasLikes: true,
-      tag: "위로",
-      content:
-        "요즘은 아무리 열심히 해도 결과가 잘 안 보여서 지치고 있어요.공부는 하고 있는데, 내가 잘하고 있는 건지 잘 모르겠어요.정말 이 길이 내가 원하는 길인지 점점 헷갈리기도 하고요.",
-      style: {
-        borderWidth: "0 0 1px 0",
-        borderStyle: "solid",
-        borderColor: "#B3B2B2",
-      },
-      hasBookmark: true,
-    },
-  ];
+    fetchMyStories();
+  }, []);
+  
   return (
     <div style={{ width: "100%", height: "100vh", background:"#f7f3ff"}}>
       <div style={{ padding: "35px 25px" }}>
@@ -41,20 +35,27 @@ const MyCheer = () => {
             marginBottom: "20px",
           }}
         >
-          <Arrow style={{ fontSize: "1.2em" }} />
+          <Arrow style={{ fontSize: "1.2em" }} onClick={() => navigate('/writeCheer') } />
           <div>나의 사연 쓰기</div>
         </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         {cheers.map((cheer) => (
           <StoryInput
-            key={cheer.id}
-            hasLikes={cheer.hasLikes}
+            key={cheer.storyId}
+            hasLikes={cheer.cheerCount}
+            nickname={cheer.username}
             style={{border:"1px solid rgba(152, 108, 233, 1)"}}
-            hasBookmark={cheer.hasBookmark}
+            hasBookmark={true}
             hasSettings={true}
+            icons = {
+              <SettingBtn isYourPage={true}></SettingBtn>
+            }
+            date = {cheer.createdAt.slice(5,7) + "." + cheer.createdAt.slice(8,10)}
           >
             {cheer.content}
           </StoryInput>
         ))}
+        </div>
       </div>
       <Footer />
     </div>
