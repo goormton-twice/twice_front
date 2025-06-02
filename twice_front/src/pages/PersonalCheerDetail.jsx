@@ -79,6 +79,7 @@ const PersonalCheerDetail = () => {
         >
           <div
             style={{
+              width: "100%",
               display: "flex",
               fontWeight: "700",
               fontSize: "1.5em",
@@ -88,7 +89,7 @@ const PersonalCheerDetail = () => {
               marginBottom: "20px",
             }}
           >
-            <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <Arrow
               style={{ fontSize: "1.2em" }}
               onClick={() => navigate("/personalCheer")}
@@ -122,40 +123,7 @@ const PersonalCheerDetail = () => {
           </StoryInput>
         )}
       </div>
-      <div className="sd-input-bar">
-        <input
-          className="sd-input-placeholder"
-          style = {{
-            border: "none",
-            outline: "none",
-            background: "transparent",}}
-          placeholder="따뜻한 응원 보내기"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSendCheer();
-          }}
-          
-        />
-        <button className="sd-input-arrow" onClick={handleSendCheer}>
-          <svg
-            width="24"
-            height="25"
-            viewBox="0 0 24 25"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect y="0.5" width="24" height="24" rx="12" fill="#986CE9" />
-            <path
-              d="M5 12.5L12 5.5M12 5.5L19 12.5M12 5.5V19.5"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
+      
       <div style = {{ display: "flex", flexDirection: "column", gap: "10px", zIndex:"0" }}>
       {cheers.map((cheer) => {
         return (

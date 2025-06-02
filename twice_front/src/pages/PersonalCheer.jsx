@@ -7,6 +7,7 @@ import Rock from "../components/Rock";
 import Footer from "../components/Footer";
 import { useNavigate } from 'react-router-dom';
 import Profile from '../components/profile';
+import { getMyStories } from '../api/storyApi';
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -22,7 +23,7 @@ const PersonalCheer = () => {
   };
   const handleClick = (id) => {
     navigate(`/personalCheerDetail/${id}`);}
-  const posts = [
+  const [posts,setPosts] = useState([
     {
       id: 1,
       hasLikes: true,
@@ -45,7 +46,18 @@ const PersonalCheer = () => {
         borderColor: "#B3B2B2",
       },
     },
-  ];
+  ]);
+  useEffect(() => {
+      async function fetchPosts() {
+        try {
+          const response = await getMyStories() // 실제 API URL로 변경
+          setPosts(response);
+        } catch (error) {
+          console.error("인기 응원함을 불러오는 중 오류 발생:", error);
+        }
+      }
+      fetchPosts();
+    }, []); 
   const filteredPosts =
     selectedTag === null
       ? posts
@@ -171,18 +183,15 @@ const PersonalCheer = () => {
         <div style={{ padding: "0 20px" }}>
           {filteredPosts.map((post) => (
             <StoryInput
-              key={post.id}
-              hasLikes={post.hasLikes}
-              style={post.style}
-              Tag={post.tag}
-              onClic={() => handleClick(post.id)}
+              key={post.storyId}
+              hasLikes={post.cheerCount}
+              style={{}}
+              Tag={post.categoryName}
+              onClic={() => handleClick(post.storyId)}
             >
               {
                 <div>
                   <div>{post.content}</div>
-                  <StoryInput key={6} hasLikes={false}>
-                    힘 내세요!
-                  </StoryInput>
                 </div>
               }
             </StoryInput>
