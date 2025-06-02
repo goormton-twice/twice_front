@@ -50,6 +50,7 @@ const MyCheer = () => {
             icons = {
               <SettingBtn isYourPage={true}></SettingBtn>
             }
+            url ={"/person3.svg"}
             date = {cheer.createdAt.slice(5,7) + "." + cheer.createdAt.slice(8,10)}
           >
             {cheer.content}

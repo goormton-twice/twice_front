@@ -32,6 +32,7 @@
   align-items: center;     /* 가로 중앙 정렬 */
   gap: 19px;               /* Figma에서 추출한 vertical gap */
   padding: 10px 30px;      /* 내부 패딩 (Figma Auto-Layout 기준) */
+  margin-right: 125px;
 }
 
 /* ─── 3. icon-wrapper: 상단 하트아이콘 영역 ─── */

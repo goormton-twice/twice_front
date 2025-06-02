@@ -66,11 +66,13 @@ export default function MyPage() {
         <span className="mypage-title">마이 페이지</span>
       </header>
 
-      {/* 프로필 영역 */}
       <section className="mypage-profile">
-        <div className="profile-avatar">
-          <div className="avatar-placeholder"></div>
-        </div>
+        <img
+          src="person1.svg"
+          alt="프로필 아바타"
+          className="avatar-image"
+          style={{ width: '100px', height: '100px' }}
+        />
         <h2 className="profile-name">{nickname}</h2>
         <div className="profile-mail">{email}</div>
         <button className="profile-naver-btn" disabled={socialDisabled}>
