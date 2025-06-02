@@ -6,7 +6,7 @@ import React from "react";
 import { getStoryById } from "../api/storyApi.js";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi.js";
 import Footer from "../components/Footer.jsx";
-import "./popularCheer.css";
+import "./PopularCheer.css";
 import Profile from '../components/Profile.jsx';
 const PersonalCheerDetail = () => {
   const [isClicked, setIsClicked] = useState(false);
