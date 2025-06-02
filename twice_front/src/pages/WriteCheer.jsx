@@ -23,6 +23,44 @@ const TextArea = styled.textarea`
 `;
 
 const WriteCheer = () => {
+  const [content, setContent] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+
+    if (!content.trim()) {
+      alert('내용을 입력해주세요!');
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      const response = await fetch('https://api.cheer-up.net/api/stories/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: content
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('응답 데이터:', result);
+      } else {
+        throw new Error('전송 실패');
+      }
+    } catch (error) {
+      console.error('Error는', error);
+      alert('오류가 발생했습니다: ' + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const Categories = [
     { id: 1, detail: "내 편 좀 들어줘", tag: "다정한", onclick: () => {} },
     { id: 2, detail: "위로가 필요해", tag: "따뜻한", onclick: () => {} },
@@ -33,11 +71,7 @@ const WriteCheer = () => {
       onclick: () => {},
     },
   ];
-  const [selectedId, setSelectedId] = useState(null);
-  const [isEnrolled, setIsEnrolled] = useState(false);
-  const handleEnroll = () => {
-  setIsEnrolled(true);
-};
+
   const handleClick = (id) => {
   if (selectedId === id) {
     setSelectedId(null); // 이미 선택된 거면 해제
@@ -70,7 +104,7 @@ const WriteCheer = () => {
           <label style={{ marginBottom: "10px", fontWeight: "500" }}>
             당신의 사연은 무엇인가요?
           </label>
-          <TextArea placeholder="나의 사연 남기기" />
+          <TextArea value={content} onChange={(e) => setContent(e.target.value)} disabled={isLoading} placeholder="나의 사연 남기기" />
           <Button
             style={{
               position: "fixed",
@@ -85,7 +119,7 @@ const WriteCheer = () => {
               gap:"5px",
               padding: "10px 15px",
             }}
-            onClick={handleEnroll}
+            onClick={handleSubmit}
           >
             {isEnrolled && <div>✓</div>}
             등록하기
