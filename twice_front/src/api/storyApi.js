@@ -33,6 +33,7 @@ export const postStory = async ({content, categoryId}) => {
   }
 };
 
+// 특정 스토리(응원함) 조회
 export const getStoryById = async (storyId) => {
   const response = await api.get(`/stories/${storyId}`);
   return response.data.data;
