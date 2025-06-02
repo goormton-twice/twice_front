@@ -5,9 +5,10 @@ import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Rock from "../components/Rock";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
-import Profile from "../components/profile";
-import { getMyStories } from "../api/storyApi";
+
+import { useNavigate } from 'react-router-dom';
+import { getMyStories } from '../api/storyApi';
+import Profile from '../components/Profile.jsx';
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);

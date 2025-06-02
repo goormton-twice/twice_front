@@ -9,7 +9,7 @@ import MessageCircleHeart from "../components/MessageCircleHeart.jsx";
 import { getStoryById } from "../api/storyApi";
 import { getCheersByStoryId } from "../api/cheerApi";
 import "./StoryDetailPage.css";
-import Bookmark from '../components/bookmark.jsx';
+import Bookmark from '../components/Bookmark.jsx';
 
 export default function StoryDetailPage() {
   const { storyId } = useParams();
