@@ -6,10 +6,10 @@ import Share from "../components/share.jsx";
 import Edit from "../components/Edit.jsx";
 import Arrow from "../components/Arrow.jsx";
 import MessageCircleHeart from "../components/MessageCircleHeart.jsx";
-import Bookmark from "../components/Bookmark.jsx";
 import { getStoryById } from "../api/storyApi";
 import { getCheersByStoryId } from "../api/cheerApi";
 import "./StoryDetailPage.css";
+import Bookmark from '../components/bookmark.jsx';
 
 export default function StoryDetailPage() {
   const { storyId } = useParams();
