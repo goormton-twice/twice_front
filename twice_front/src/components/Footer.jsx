@@ -1,11 +1,11 @@
 import React from "react";
 import HomeImg from "./HomeImg";
-import Likes from "./likes";
 import Cheer from "./Cheer";
 import PersonalCheerImg from "./PersonalCheerImg";
 import PopularCheerImg from './PopularCheerImg';
 import "./Footer.css";
 import { useNavigate, useLocation } from 'react-router-dom';
+import Likes from "./likes";
 
 const Footer = () => {
   const navigate = useNavigate();
