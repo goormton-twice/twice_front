@@ -34,8 +34,14 @@ export const postStory = async ({content, categoryId}) => {
 };
 
 export const getStoryById = async (storyId) => {
-  const response = await api.get(`/stories/${storyId}`);
-  return response.data.data;
+  try {
+    const res = await api.get(`/stories/${storyId}`);
+    // 실제 유효 데이터는 res.data.data 안에 들어 있습니다.
+    return res.data; 
+  } catch (err) {
+    console.error("스토리 단건 조회 실패:", err.response?.data || err.message);
+    throw new Error(err.response?.data?.message || "스토리 조회 중 오류 발생");
+  }
 };
 
 

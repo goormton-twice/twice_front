@@ -1,35 +1,50 @@
-// src/pages/CategoryDetailPage3.jsx
+// src/pages/CategoryDetailPage.jsx
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./CategoryDetailPage.css";
 import Arrow from "../components/Arrow";
 import Footer from "../components/Footer";
 
-// cheerApi.js에서 랜덤 응원 메시지 호출 함수
+// cheerApi.js에서 랜덤 응원 메시지 호출 함수 import
 import { getRandomCheerByCategory } from "../api/cheerApi";
 
-export default function CategoryDetailPage3() {
+export default function CategoryDetailPage() {
+  // URL 파라미터에서 category를 꺼냅니다. 예: "kind", "warm", "power"
+  const { category } = useParams();
   const navigate = useNavigate();
 
-  // 카테고리 ID = 3 (“잘하고 있다는 말이 듣고 싶어”)
-  const categoryIdNum = 3;
-  const categoryName = "잘하고 있다는 말이 듣고 싶어";
+  // 문자열 → 숫자 ID 매핑
+  const categoryIdMap = {
+    kind: 1,
+    warm: 2,
+    power: 3,
+  };
+  const categoryIdNum = categoryIdMap[category];
 
+  // 상태: 응원 데이터, 로딩, 에러
   const [cheerData, setCheerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // categoryIdNum이 유효하지 않으면 에러 처리
+    if (!categoryIdNum) {
+      setError("잘못된 카테고리입니다.");
+      setLoading(false);
+      return;
+    }
+
     const fetchRandomCheer = async () => {
       setLoading(true);
       setError(null);
       setCheerData(null);
 
       try {
-        // 실제 API 호출: /api/cheers/random?categoryId=3
+        // 실제 API 호출: /api/cheers/random?categoryId={categoryIdNum}
         const result = await getRandomCheerByCategory(categoryIdNum);
 
         if (result.success) {
+          // result.data 안에 응원 메시지 객체가 들어 있음
           setCheerData(result.data);
         } else {
           setError(result.message || "응원 메시지를 불러오지 못했습니다.");
@@ -44,26 +59,39 @@ export default function CategoryDetailPage3() {
     };
 
     fetchRandomCheer();
-  }, []);
+  }, [categoryIdNum, category]);
 
+  // 뒤로 가기 클릭 시
   const handleBack = () => {
     navigate(-1);
   };
 
+  // “응원에 대한 사연 보러 가기” 클릭 시
   const handleViewSupport = () => {
     navigate("/support/story");
   };
 
+  // “나만의 사연 쓰기” 클릭 시
   const handleWriteStory = () => {
     navigate("/write");
   };
 
+  // 예시용: 응원 개수가 cheerData 유무로만 판단 (실제로는 서버 응답에서 받은 카운트를 사용)
   const supportCount = cheerData ? 1 : 0;
   const minSupportCount = 3;
   const isButtonDisabled = supportCount < minSupportCount;
 
+  // category 문구 매핑: 카드 상단 서브타이틀에 쓰일 이름
+  const categoryNameMap = {
+    kind: "내 편 좀 들어줘",
+    warm: "위로가 필요해",
+    power: "잘하고 있다는 말이 듣고 싶어",
+  };
+  const categoryName = categoryNameMap[category] || "알 수 없는 카테고리";
+
   return (
     <div className="category-detail-wrapper">
+      {/* 상단 헤더: 뒤로 가기 + 메인 타이틀 */}
       <div className="category-detail-header">
         <div className="back-arrow" onClick={handleBack}>
           <Arrow />
@@ -71,19 +99,26 @@ export default function CategoryDetailPage3() {
         <h1 className="category-detail-title">무조건 응원함</h1>
       </div>
 
+      {/* 서브타이틀: “<categoryName>에 대한 응원이에요” */}
       <div className="category-detail-subtitle">
         “{categoryName}”에 대한 응원이에요
       </div>
 
+      {/* 로딩 중 */}
       {loading && (
         <p className="category-detail-loading">응원 메시지를 불러오는 중...</p>
       )}
+
+      {/* 에러 발생 시 */}
       {error && <p className="category-detail-error">에러: {error}</p>}
 
+      {/* 정상적으로 응원 데이터가 로드된 경우 카드 렌더링 */}
       {!loading && !error && cheerData && (
         <div className="category-detail-card">
+          {/* 카드 헤더: 프로필 + 사용자명 + 날짜 */}
           <div className="card-header">
             <div className="card-avatar">
+              {/* 실제 프로필 이미지가 있다면 <img src={cheerData.profileImageUrl} /> */}
               <div className="avatar-placeholder"></div>
             </div>
             <span className="card-username">{cheerData.username}</span>
@@ -95,8 +130,10 @@ export default function CategoryDetailPage3() {
             </span>
           </div>
 
+          {/* 카드 내용: 응원 메시지 */}
           <div className="card-content">{cheerData.content}</div>
 
+          {/* 카드 하단 “응원에 대한 사연 보러 가기” 버튼 */}
           <button className="view-support-button" onClick={handleViewSupport}>
             <span className="view-support-text">응원에 대한 사연 보러 가기</span>
             <div className="view-support-icon">
@@ -119,6 +156,7 @@ export default function CategoryDetailPage3() {
         </div>
       )}
 
+      {/* 하단 “나만의 사연 쓰기” 버튼 (fixed) */}
       <div className="write-story-bottom-wrapper">
         <button
           className={`write-story-bottom ${isButtonDisabled ? "disabled" : ""}`}

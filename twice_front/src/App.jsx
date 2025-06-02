@@ -12,6 +12,7 @@ import Signup from './pages/Signup.jsx'
 import Cart from './pages/Cart.jsx'
 import UserProfile from './pages/UserProfile.jsx'
 import UnconditionalSupportPage from './pages/UnconditionalSupportPage.jsx'
+import CategoryDetailPage from './pages/CategoryDetailPage.jsx'
 import CategoryDetailPage1 from './pages/CategoryDetailPage1.jsx'
 import CategoryDetailPage2 from './pages/CategoryDetailPage2.jsx'
 import CategoryDetailPage3 from './pages/CategoryDetailPage3.jsx'
@@ -34,6 +35,8 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/support" element={<UnconditionalSupportPage />} />
+        <Route path="/support/kind" element={<CategoryDetailPage />} />
+        <Route path="/support/:categoryId" element={<CategoryDetailPage />} />
         <Route path="/support/kind" element={<CategoryDetailPage1 />} />
         <Route path="/support/warm" element={<CategoryDetailPage2 />} />
         <Route path="/support/power" element={<CategoryDetailPage3 />} />
