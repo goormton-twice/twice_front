@@ -1,24 +1,20 @@
-import Setting from "../components/Setting.jsx";
 import StoryInput from "../components/StoryInput";
 import Arrow from "../components/Arrow.jsx";
 import { useEffect, useState } from "react";
-import Report from "../components/Report.jsx";
-import Share from "../components/share.jsx";
-import Edit from "../components/Edit.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import { getStoryById } from "../api/storyApi.js";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi.js";
 import Footer from "../components/Footer.jsx";
 import "./PopularCheer.css";
-const PopularCheer = () => {
+import Profile from '../components/Profile.jsx';
+const PersonalCheerDetail = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isYourPage, setIsYourPage] = useState(false);
   const [post, setPost] = useState();
   const [cheers, setCheers] = useState([]);
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState("");
-
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -26,7 +22,7 @@ const PopularCheer = () => {
       try {
         const response = await getStoryById(id);
         setPost(response);
-        console.log("인기 응원함을 불러오는 중:", response);
+        console.log("개인 응원함을 불러오는 중:", response);
       } catch (error) {
         console.error("API 호출 실패:", error);
       }
@@ -44,32 +40,6 @@ const PopularCheer = () => {
     getCheer();
   }, [id]);
 
-  const handleSendCheer = async () => {
-    if (!inputValue.trim()) return;
-    try {
-      await postCheer({
-        storyId:id,
-        content: inputValue,
-        category: "기타",
-      });
-      setInputValue(""); // 입력창 초기화
-
-      // 새로고침 없이 댓글 목록 갱신
-      const cheers = await getCheersByStoryId(id);
-      setComments(
-        (cheers || []).map((c) => ({
-          id: c.cheerId || c.id,
-          avatar: c.user?.profileImageUrl || "/avatars/default.png",
-          user: c.user?.username || "익명",
-          date: c.createdAt ? new Date(c.createdAt).toLocaleDateString() : "-",
-          content: c.content,
-        }))
-      );
-    } catch (err) {
-      console.error("응원 등록 실패:", err);
-      alert("응원 등록에 실패했습니다.");
-    }
-  };
   return (
     <div style={{ width: "100%", height: "screen", background: "#f7f3ff" }}>
       <div style={{ padding: "35px 25px" }}>
@@ -83,19 +53,28 @@ const PopularCheer = () => {
         >
           <div
             style={{
+              width: "100%",
               display: "flex",
               fontWeight: "700",
               fontSize: "1.5em",
               alignItems: "center",
+              justifyContent: "space-between",
               gap: "5px",
               marginBottom: "20px",
             }}
           >
+            <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <Arrow
               style={{ fontSize: "1.2em" }}
-              onClick={() => navigate("/popularCheersList")}
+              onClick={() => navigate("/personalCheer")}
             />
-            <div>인기 응원함</div>
+            <div>개인 응원함</div>
+            </div>
+            <Profile
+                      stroke="rgba(152, 108, 233, 1)"
+                      fill="rgba(247, 243, 255, 1)"
+                      onClick = {() => navigate('/mypage')}
+                    ></Profile>
           </div>
         </div>
         {post && (
@@ -104,9 +83,7 @@ const PopularCheer = () => {
             hasSettings={true}
             nickname={post.username}
             date={
-              post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)
-            }
-            
+              post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)}
             hasLikes={post.cheerCount}
             hasBookmark={true}
             style={{
@@ -119,46 +96,12 @@ const PopularCheer = () => {
           </StoryInput>
         )}
       </div>
-      <div className="sd-input-bar">
-        <input
-          className="sd-input-placeholder"
-          style = {{
-            border: "none",
-            outline: "none",
-            background: "transparent",}}
-          placeholder="따뜻한 응원 보내기"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSendCheer();
-          }}
-          
-        />
-        <button className="sd-input-arrow" onClick={handleSendCheer}>
-          <svg
-            width="24"
-            height="25"
-            viewBox="0 0 24 25"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect y="0.5" width="24" height="24" rx="12" fill="#986CE9" />
-            <path
-              d="M5 12.5L12 5.5M12 5.5L19 12.5M12 5.5V19.5"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
+      
       <div style = {{ display: "flex", flexDirection: "column", gap: "10px", zIndex:"0" }}>
       {cheers.map((cheer) => {
         return (
             <StoryInput
             key={cheer.cheerId}
-            hasLikes={cheer.cheerCount}
             nickname={cheer.username}
             date={
               cheer.createdAt.slice(5, 7) + "." + cheer.createdAt.slice(8, 10)
@@ -182,4 +125,4 @@ const PopularCheer = () => {
   );
 };
 
-export default PopularCheer;
+export default PersonalCheerDetail;

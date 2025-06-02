@@ -52,12 +52,14 @@ export default function CategoryDetailPage1() {
     navigate(-1);
   };
 
-  // “응원에 대한 사연 보러 가기” 클릭
   const handleViewSupport = () => {
-    navigate("/support/story");
+    if (cheerData && cheerData.storyId) {
+      navigate(`/stories/${cheerData.storyId}`);
+    } else {
+      console.error("Story ID is missing in cheerData.");
+    }
   };
 
-  // “나만의 사연 쓰기” 클릭
   const handleWriteStory = () => {
     navigate("/write");
   };

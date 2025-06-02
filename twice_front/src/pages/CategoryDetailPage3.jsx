@@ -51,7 +51,11 @@ export default function CategoryDetailPage3() {
   };
 
   const handleViewSupport = () => {
-    navigate("/support/story");
+    if (cheerData && cheerData.storyId) {
+      navigate(`/stories/${cheerData.storyId}`);
+    } else {
+      console.error("Story ID is missing in cheerData.");
+    }
   };
 
   const handleWriteStory = () => {

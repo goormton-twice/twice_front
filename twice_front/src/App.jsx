@@ -22,7 +22,7 @@ import MySupportsPage from "./pages/MySupportsPage";
 import WriteCheer from './pages/WriteCheer.jsx'
 import MyCheer from './pages/MyCheer.jsx'
 import AuthForm from './components/AuthForm';
-
+import PersonalCheerDetail from './pages/PersonalCheerDetail.jsx'
 export default function App() {
   const role = sessionStorage.getItem('role') // 'user' or 'seller'
   const Layout = role === 'user' ? MobileLayout : DesktopLayout
@@ -42,13 +42,15 @@ export default function App() {
         <Route path="/support/power" element={<CategoryDetailPage3 />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/popularCheersList" element={<PopularCheersList />} />
-        <Route path = "/popularCheer" element = {<PopularCheer />} />
+        <Route path = "/popularCheersList/:id" element = {<PopularCheer />} />
         <Route path = "/personalCheer" element = {<PersonalCheer />} />
+        <Route path="/personalCheer/:id" element={<PersonalCheerDetail />} />
         <Route path="/writeCheer" element={<WriteCheer />}></Route>
         <Route path="/myCheer" element={<MyCheer />}></Route>
-        <Route path="/auth" element={<AuthForm />} />
+        {/* <Route path="/auth" element={<AuthForm />} /> */}
         <Route path="/stories/:storyId" element={<StoryDetailPage />} />
         <Route path="/mysupports" element={<MySupportsPage />} />
+        {/* <Route path="/oauth2/redirect/:provider" element={<OAuth2RedirectHandler />} /> */}
       </Routes>
       )
     }

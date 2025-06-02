@@ -4,24 +4,25 @@ import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import { getPopularStories } from '../api/storyApi';
 
 const PopularCheersList = () => {
   const [posts, setPosts] = useState( [
     {
-      "storyId": 0,
-      "content": "s",
-      "createdAt": "2025-06-01T11:05:10.114Z",
-      "categoryName": "s",
-      "username": "s",
-      "cheerCount": 0
+      storyId: 0,
+      content: "s",
+      createdAt: "2025-06-01T11:05:10.114Z",
+      categoryName: "s",
+      username: "s",
+      cheerCount: 0
     }
   ]);
+  const [selectedTag, setSelectedTag] = useState(null);
+  const navigate = useNavigate();
   const handlePostClick = (postId) => {
     // URL 파라미터로 글 ID 전달
     navigate(`/popularCheersList/${postId}`);
   };
-  const [selectedTag, setSelectedTag] = useState(null);
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
     if (selectedTag === tag) {
@@ -31,26 +32,27 @@ const PopularCheersList = () => {
     }
   };
   useEffect(() => {
-    axios.get('https://api.cheer-up.net/api/stories/popular?size=10') // <- Swagger에서 확인한 GET API URL
-      .then((response) => {
-        console.log(response.data); // 응답 데이터 확인
-        setPosts(response.data.data);     // 상태에 저장
-      })
-      .catch((error) => {
-        console.error("API 호출 실패:", error);
-      });
+    async function fetchPosts() {
+      try {
+        const response = await getPopularStories() // 실제 API URL로 변경
+        setPosts(response);
+      } catch (error) {
+        console.error("인기 응원함을 불러오는 중 오류 발생:", error);
+      }
+    }
+    fetchPosts();
   }, []); 
   
- // const filteredPosts =
-   // selectedTag === null
-     // ? posts
-     // : posts.filter((post) => post.tag.includes(selectedTag));
+ const filteredPosts =
+   selectedTag === null
+      ? posts
+      : posts.filter((post) => post.categoryName.includes(selectedTag));
 
   return (
     <div
       style={{
         width: "100%",
-        height: "100vh",
+        height: "screen",
         background:"linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)"
       }}
     >
@@ -93,12 +95,13 @@ const PopularCheersList = () => {
             응원
           </Button>
         </div>
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <StoryInput
             key={post.storyId}
+            nickname={post.username}
             hasLikes={post.cheerCount}
             style={{border:"0", borderBottom:"2px solid rgba(218, 218, 218, 1)", boxShadow:"none", borderRadius:"0", backgroundColor:"transparent"}}
-            Tag={post.categoryName}
+            date = {post.createdAt.slice(5,7) + "." + post.createdAt.slice(8,10)}
             onClick={() => handlePostClick(post.storyId)}
           >
             {post.content}
