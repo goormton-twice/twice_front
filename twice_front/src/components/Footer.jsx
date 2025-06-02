@@ -54,7 +54,7 @@ const Footer = () => {
         alignItems: "center",
         width: "100%",
         height: "70px",
-        background: "",
+        background: "white",
         position: "fixed",
         bottom: "0",
         padding: "10px 5px",

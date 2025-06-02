@@ -50,8 +50,8 @@ const PopularCheersList = () => {
     <div
       style={{
         width: "100%",
-        height: "100%",
-
+        height: "100vh",
+        background:"linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)"
       }}
     >
       <div style={{ padding: "35px 25px 0 25px",  display: "flex",
@@ -97,7 +97,7 @@ const PopularCheersList = () => {
           <StoryInput
             key={post.storyId}
             hasLikes={post.cheerCount}
-            style={{}}
+            style={{border:"0", borderBottom:"2px solid rgba(218, 218, 218, 1)", boxShadow:"none", borderRadius:"0", backgroundColor:"transparent"}}
             Tag={post.categoryName}
             onClick={() => handlePostClick(post.storyId)}
           >

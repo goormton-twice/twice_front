@@ -1,6 +1,7 @@
 import Arrow from "../components/Arrow";
 import Footer from "../components/Footer";
 import StoryInput from "../components/StoryInput";
+import React from "react";
 const MyCheer = () => {
   const cheers = [
     {
@@ -18,16 +19,16 @@ const MyCheer = () => {
     },
   ];
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <div style={{ padding: "25px 20px" }}>
+    <div style={{ width: "100%", height: "100vh", background:"#f7f3ff"}}>
+      <div style={{ padding: "35px 25px" }}>
         <div
           style={{
             display: "flex",
-            fontWeight: "900",
+            fontWeight: "700",
             fontSize: "1.5em",
             alignItems: "center",
             gap: "5px",
-            marginBottom: "5px",
+            marginBottom: "20px",
           }}
         >
           <Arrow style={{ fontSize: "1.2em" }} />
@@ -37,8 +38,9 @@ const MyCheer = () => {
           <StoryInput
             key={cheer.id}
             hasLikes={cheer.hasLikes}
-            style={cheer.style}
+            style={{border:"1px solid rgba(152, 108, 233, 1)"}}
             hasBookmark={cheer.hasBookmark}
+            hasSettings={true}
           >
             {cheer.content}
           </StoryInput>

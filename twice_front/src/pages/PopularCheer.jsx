@@ -1,12 +1,13 @@
 import Setting from "../components/Setting.jsx";
 import StoryInput from "../components/StoryInput";
 import Arrow from "../components/Arrow.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Report from "../components/Report.jsx";
 import Share from "../components/share.jsx";
 import Edit from '../components/Edit.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import React from 'react';
 const PopularCheer = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isYourPage, setIsYourPage] = useState(false);
@@ -33,6 +34,7 @@ const PopularCheer = () => {
           justifyContent: "space-between",
           alignItems: "center",
           gap: "5px",
+          background:"#f7f3ff"  
         }}
       >
         <div
