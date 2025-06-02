@@ -7,7 +7,7 @@ import { getStoryById } from "../api/storyApi.js";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi.js";
 import Footer from "../components/Footer.jsx";
 import "./popularCheer.css";
-import Profile from '../components/profile.jsx';
+import Profile from '../components/Profile.jsx';
 const PersonalCheerDetail = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isYourPage, setIsYourPage] = useState(false);
