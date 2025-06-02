@@ -6,6 +6,7 @@ import InputBar from "../components/InputBar";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi";
 import { getRandomStories, getPopularStories } from "../api/storyApi";
 import { getUserInfo } from "../api/userApi";
+import BottomNav from "../components/BottomNav";
 import "./Home.css";
 
 const getIdx = (idx, len) => ((idx % len) + len) % len;

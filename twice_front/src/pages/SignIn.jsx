@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import './SignIn.css';
 import { loginUser } from '../api/userApi';
 import { useNavigate } from 'react-router-dom';
+import NaverLoginButton from "../components/NaverLoginButton";
+import GoogleLoginButton from "../components/GoogleLoginButton";
+import KakaoLoginButton from "../components/KakaoLoginButton";
+
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,14 +27,6 @@ export default function LoginPage() {
       console.error('로그인 실패:', error);
       alert('이메일 또는 비밀번호를 확인해주세요.');
     }
-  };
-
-  const handleGoogleLogin = () => {
-    window.location.href = 'https://api.cheer-up.net/api/users/oauth2/google';
-  };
-
-  const handleNaverLogin = () => {
-    window.location.href = 'https://api.cheer-up.net/api/users/oauth2/naver';
   };
 
   return (
@@ -77,12 +73,9 @@ export default function LoginPage() {
             <span className="line" />
           </div>
           <div className="sns-buttons">
-            <button onClick={handleGoogleLogin} className="sns-btn google">
-              <img src="/google.svg" alt="google" />
-            </button>
-            <button onClick={handleNaverLogin} className="sns-btn google">
-              <img src="/naver.svg" alt="naver" />
-            </button>
+            <NaverLoginButton />
+            <GoogleLoginButton />
+            <KakaoLoginButton />
           </div>
         </div>
       </div>

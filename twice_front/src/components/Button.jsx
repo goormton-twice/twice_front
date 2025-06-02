@@ -1,3 +1,5 @@
+import React from "react";
+
 const Button = ({ style, children, ...props }) => {
   return (
     <button

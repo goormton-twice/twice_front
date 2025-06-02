@@ -21,3 +21,10 @@ export const postCheer = async ({ storyId, content, category }) => {
     throw err;
   }
 };
+
+export const getRandomCheer = async (category, userNumber) => {
+  const res = await api.get('/cheers/random', {
+    params: { category, userNumber }
+  });
+  return res.data.data;
+};
