@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useState } from "react";
-import Profile from "../components/profile";
+import Profile from "../components/Profile";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Rock from '../components/Rock';
