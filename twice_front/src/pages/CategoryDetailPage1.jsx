@@ -8,12 +8,12 @@ import Footer from "../components/Footer";
 // cheerApi.js에서 랜덤 응원 메시지 호출 함수
 import { getRandomCheerByCategory } from "../api/cheerApi";
 
-export default function CategoryDetailPage3() {
+export default function CategoryDetailPage1() {
   const navigate = useNavigate();
 
   // 카테고리 ID = 3 (“잘하고 있다는 말이 듣고 싶어”)
   const categoryIdNum = 1;
-  const categoryName = "내 편 좀 들어줘줘";
+  const categoryName = "내 편 좀 들어줘";
 
   const [cheerData, setCheerData] = useState(null);
   const [loading, setLoading] = useState(true);
