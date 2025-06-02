@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Bookmark from "./bookmark";
+import Bookmark from "./Bookmark";
 import Button from "./Button";
 import Likes from "./Likes";
 import "./StoryInput.css";
