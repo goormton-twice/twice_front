@@ -12,6 +12,9 @@ const TextArea = styled.textarea`
     color: rgba(206, 206, 206, 1);
     font-weight: 500;
     font-family: "Pretendard";
+    translateY: 2px;
+    translateX: 10px;
+  translate: 5px -5px;
   }
   display: flex;
   align-items: center;
@@ -44,11 +47,12 @@ const WriteCheer = () => {
           content: content,
           categoryId: selectedId
         })
+        if(result || result.success) {
         setIsEnrolled(true); 
         console.log('응답 데이터:', result);
         setTimeout(() => setIsEnrolled(false), 2000); 
         setContent('');
-        setSelectedId(null);
+        setSelectedId(null);}
     } catch (error) {
       console.error('Error는', error);
       alert('오류가 발생했습니다: ' + error.message);

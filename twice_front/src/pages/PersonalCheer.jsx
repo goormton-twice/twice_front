@@ -4,8 +4,8 @@ import { useState } from "react";
 import Profile from "../components/profile";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
-import Rock from '../components/Rock';
-import Footer from '../components/Footer';
+import Rock from "../components/Rock";
+import Footer from "../components/Footer";
 
 const PersonalCheer = () => {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -48,12 +48,19 @@ const PersonalCheer = () => {
       : posts.filter((post) => post.tag.includes(selectedTag));
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        padding: "35px 25px",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)",
+      }}
+    >
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          fontWeight: "900",
+          fontWeight: "700",
           fontSize: "1.5em",
           alignItems: "center",
           gap: "5px",
@@ -61,21 +68,36 @@ const PersonalCheer = () => {
         }}
       >
         <div>개인 응원함</div>
-        <Profile />
+        <Profile
+          stroke="rgba(152, 108, 233, 1)"
+          fill="rgba(247, 243, 255, 1)"
+        />
       </div>
       <div
         style={{
+          width: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "space-between",
+          justifyContent: "center",
           gap: "10px",
           margin: "20px 0",
+          backgroundColor: "rgba(255, 255, 255, 1)",
+          borderRadius: "30px",
+          boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.15)",
         }}
       >
-        <img src="../src/assets/react.svg" style={{ width: "100px" }} />
-        <div style={{fontWeight:"700"}}>닉네임 님</div>
-        <div>오늘 보낸 응원 <div style={{fontWeight:"700", display:"inline"}}>3 </div>개</div>
-        <div>지금까지 보낸 응원 <div style={{fontWeight:"700", display:"inline"}}>3 </div>개</div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            오늘 보낸 응원{" "}
+            <div style={{ fontWeight: "700", display: "inline" }}>3 </div>개
+          </div>
+        </div>
+        <div>
+          지금까지 보낸 응원{" "}
+          <div style={{ fontWeight: "700", display: "inline" }}>3 </div>개
+        </div>
       </div>
       <div
         style={{
@@ -85,35 +107,63 @@ const PersonalCheer = () => {
           marginBottom: "15px",
         }}
       />
-      <div style={isFiltered? {display:"flex", position:"absolute",flexDirection:"column", alignItems:"center", zIndex:1, translate:"30px 50px"  }: { display: "none" }}>
+      <div
+        style={
+          isFiltered
+            ? {
+                display: "flex",
+                position: "absolute",
+                flexDirection: "column",
+                alignItems: "center",
+                zIndex: 1,
+                translate: "60px 50px",
+              }
+            : { display: "none" }
+        }
+      >
         <Rock />
-          <div style={{textAlign:"center", width:"250px"}}>
-            내가 받은 응원을 보기까지 <br />써야 하는 응원 수가 <div style={{display:"inline", color:"#E35F5F"}}>2개 </div>
-            남았어요
-          </div>
+        <div style={{ textAlign: "center", width: "250px" }}>
+          내가 받은 응원을 보기까지 <br />
+          써야 하는 응원 수가{" "}
+          <div style={{ display: "inline", color: "#E35F5F" }}>2개 </div>
+          남았어요
+        </div>
       </div>
-      <div style={isFiltered ? { filter: "blur(3px)", background:"linear-gradient(white,#F7C0C0)" } : {}}>
+      <div>내가 쓴 사연</div>
+      <div style={isFiltered ? { filter: "blur(3px)" } : {}}>
         <div style={{ display: "flex", gap: "10px", padding: "0 20px" }}>
           <Button
             onClick={handleTagClick}
-            style={{ padding: "10px 20px", borderRadius: "0" }}
+            style={{
+              padding: "15px 25px",
+              borderRadius: "30px",
+              border: "1px solid rgba(137, 137, 137, 1)",
+            }}
           >
             공감
           </Button>
           <Button
             onClick={handleTagClick}
-            style={{ padding: "10px 20px", borderRadius: "0" }}
+            style={{
+              padding: "15px 25px",
+              borderRadius: "30px",
+              border: "1px solid rgba(137, 137, 137, 1)",
+            }}
           >
             위로
           </Button>
           <Button
             onClick={handleTagClick}
-            style={{ padding: "10px 20px", borderRadius: "0" }}
+            style={{
+              padding: "15px 25px",
+              borderRadius: "30px",
+              border: "1px solid rgba(137, 137, 137, 1)",
+            }}
           >
             응원
           </Button>
         </div>
-        <div style={{padding:"0 20px"}}>
+        <div style={{ padding: "0 20px" }}>
           {filteredPosts.map((post) => (
             <StoryInput
               key={post.id}
