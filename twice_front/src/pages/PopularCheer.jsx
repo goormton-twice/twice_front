@@ -5,9 +5,26 @@ import { useState } from "react";
 import Report from "../components/Report.jsx";
 import Share from "../components/share.jsx";
 import Edit from '../components/Edit.jsx';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 const PopularCheer = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isYourPage, setIsYourPage] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [posts, setPosts] = useState([])
+  const post = posts.find(p => p.id === parseInt(id));
+
+  useEffect(() => {
+      axios.get(`https://api.cheer-up.net/api/stories/${post.storyId}`) // <- Swagger에서 확인한 GET API URL
+        .then((response) => {
+          console.log(response.data); // 응답 데이터 확인
+          setPosts(response.data.data);     // 상태에 저장
+        })
+        .catch((error) => {
+          console.error("API 호출 실패:", error);
+        });
+    }, []); 
   return (
     <div style={{ width: "100%", height: "100%", padding: "20px" }}>
       <div
@@ -71,7 +88,10 @@ const PopularCheer = () => {
       </div>
 
       <StoryInput
-        hasLikes={true}
+        nickname={post.username}
+        date={post.createdAt.split("T")[0]} // Assuming createdAt is in ISO format
+        url={"../src/assets/react.svg"} // Default image if none provided
+        hasLikes={post.cheerCount}
         hasBookmark={true}
         style={{
           borderWidth: "0 0 1px 0",
@@ -79,7 +99,7 @@ const PopularCheer = () => {
           borderColor: "black",
         }}
       >
-        사연 내용 <div style={{ height: "100px" }} />
+        {post.content}<div style={{ height: "100px" }} />
       </StoryInput>
 
       <StoryInput

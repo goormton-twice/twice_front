@@ -8,6 +8,9 @@ const StoryInput = (props) => {
     Tag= null,
     hasLikes = 0,
     style = {},
+    nickname = "닉네임",
+    date = "5.16",
+    url= "../src/assets/react.svg",
     hasBookmark = false,
     children = null
   } = props;
@@ -15,9 +18,9 @@ const StoryInput = (props) => {
     <div id="outline" style={style}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
         <div className="div-flex" style={{ gap: "5px", alignItems: "center", fontSize: "14px" }}>
-          <img src="../src/assets/react.svg" />
-          <div>닉네임</div>
-          <div>05.16</div>
+          <img src={url}/>
+          <div>{nickname}</div>
+          <div>{date}</div>
         </div>
         {Tag && <Button disabled>{Tag}</Button>}
       </div>

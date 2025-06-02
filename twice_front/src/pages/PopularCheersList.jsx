@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import StoryInput from "../components/StoryInput";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const PopularCheersList = () => {
@@ -16,6 +17,10 @@ const PopularCheersList = () => {
       "cheerCount": 0
     }
   ]);
+  const handlePostClick = (postId) => {
+    // URL 파라미터로 글 ID 전달
+    navigate(`/popularCheersList/${postId}`);
+  };
   const [selectedTag, setSelectedTag] = useState(null);
   const handleTagClick = (e) => {
     const tag = e.target.innerText;
@@ -94,6 +99,7 @@ const PopularCheersList = () => {
             hasLikes={post.cheerCount}
             style={{}}
             Tag={post.categoryName}
+            onClick={() => handlePostClick(post.storyId)}
           >
             {post.content}
           </StoryInput>
