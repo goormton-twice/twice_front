@@ -32,27 +32,6 @@ export default function CategoryDetailPage3() {
         const userData = userRes.data;
         setNickname(userData.username || "익명");
 
-        // 2) 인기 스토리 3개 가져오기
-        const fetchedStories = await getPopularStories(3);
-        setStories(fetchedStories);
-
-        // 3) 각 스토리별 첫 번째 응원 메시지 가져오기
-        const cheersList = await Promise.all(
-          fetchedStories.map(async (story) => {
-            const cheerMessages = await getCheersByStoryId(story.storyId);
-            return (
-              cheerMessages[0] || {
-                content: "아직 응원이 없어요",
-                createdAt: new Date().toISOString(),
-                user: {
-                  username: "cheerup",
-                  profileImageUrl: "/avatars/default.png",
-                },
-              }
-            );
-          })
-        );
-        setCheers(cheersList);
       } catch (err) {
         console.error("데이터 불러오기 실패:", err);
         setNickname("익명");
