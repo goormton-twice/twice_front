@@ -98,7 +98,6 @@ export default function CategoryDetailPage1() {
           <div className="card-header">
             <div className="card-avatar">
               <img src="/person3.svg"></img>
-              <div className="avatar-placeholder"></div>
             </div>
             <span className="card-username">{cheerData.username}</span>
             <span className="card-date">

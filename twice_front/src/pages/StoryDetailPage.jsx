@@ -34,7 +34,7 @@ export default function StoryDetailPage() {
         const storyData = res.data; 
 
         setCard({
-          avatar: "/avatars/3d_avatar_6.png", // 실제 프로필 URL이 있으면 storyData.profileImageUrl로 교체
+          avatar: "/person1.svg", // 실제 프로필 URL이 있으면 storyData.profileImageUrl로 교체
           user: storyData.username || "익명",
           date: storyData.createdAt
             ? new Date(storyData.createdAt).toLocaleDateString()
@@ -56,8 +56,8 @@ export default function StoryDetailPage() {
             id: c.cheerId || c.id,
             // 두 가지 케이스를 모두 처리: user 객체 내부의 username, 아니면 최상위 username, 없으면 "익명"
             user: c.user?.username || c.username || "익명",
-            // 프로필 이미지도 비슷하게 처리
-            avatar: c.user?.profileImageUrl || c.profileImageUrl || "/avatars/default.png",
+            // 프로필 이미지 랜덤 선택 (person1.svg, person2.svg, person3.svg)
+            avatar: c.user?.profileImageUrl || c.profileImageUrl || `/person${Math.floor(Math.random() * 3) + 1}.svg`,
             date: c.createdAt
               ? new Date(c.createdAt).toLocaleDateString()
               : "-",
