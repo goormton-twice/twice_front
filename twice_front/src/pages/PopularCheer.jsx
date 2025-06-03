@@ -11,6 +11,7 @@ import { getStoryById } from "../api/storyApi.js";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi.js";
 import Footer from "../components/Footer.jsx";
 import "./PopularCheer.css";
+import SettingBtn from '../components/SettingBtn.jsx';
 const PopularCheer = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isYourPage, setIsYourPage] = useState(false);
@@ -25,7 +26,7 @@ const PopularCheer = () => {
     async function fetchPosts() {
       try {
         const response = await getStoryById(id);
-        setPost(response);
+        setPost(response.data);
         console.log("인기 응원함을 불러오는 중:", response);
       } catch (error) {
         console.error("API 호출 실패:", error);
@@ -101,10 +102,11 @@ const PopularCheer = () => {
         {post && (
           <StoryInput
             key={post.storyId}
-            hasSettings={true}
-            nickname={"닉네임"}
+            nickname={post.username}
+            icons={<Setting><SettingBtn></SettingBtn></Setting>}
+            url= {"/person3.svg"}
             date={
-              "06.02"
+              post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)
             }
             
             hasLikes={10}
