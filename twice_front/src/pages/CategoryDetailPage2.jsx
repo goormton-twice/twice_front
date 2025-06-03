@@ -1,4 +1,4 @@
-// src/pages/CategoryDetailPage2.jsx
+// src/pages/CategoryDetailPage3.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CategoryDetailPage.css";
@@ -8,10 +8,10 @@ import Footer from "../components/Footer";
 // cheerApi.js에서 랜덤 응원 메시지 호출 함수
 import { getRandomCheerByCategory } from "../api/cheerApi";
 
-export default function CategoryDetailPage2() {
+export default function CategoryDetailPage3() {
   const navigate = useNavigate();
 
-  // 카테고리 ID = 2 (“위로가 필요해”)
+  // 카테고리 ID = 2 (“위로가 필요해")
   const categoryIdNum = 2;
   const categoryName = "위로가 필요해";
 
@@ -26,7 +26,7 @@ export default function CategoryDetailPage2() {
       setCheerData(null);
 
       try {
-        // 실제 API 호출: /api/cheers/random?categoryId=2
+        // 실제 API 호출: /api/cheers/random?categoryId=3
         const result = await getRandomCheerByCategory(categoryIdNum);
 
         if (result.success) {
@@ -87,8 +87,8 @@ export default function CategoryDetailPage2() {
       {!loading && !error && cheerData && (
         <div className="category-detail-card">
           <div className="card-header">
+            <img src="/person3.svg"></img>
             <div className="card-avatar">
-              <img src="/person3.svg"></img>
               <div className="avatar-placeholder"></div>
             </div>
             <span className="card-username">{cheerData.username}</span>
