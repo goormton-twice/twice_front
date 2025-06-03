@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useState } from 'react';
 import Button from "../components/Button";
@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import { postStory } from '../api/storyApi';
 import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '../api/userApi';
 
 const TextArea = styled.textarea`
   &::placeholder {
@@ -32,7 +33,23 @@ const WriteCheer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [username, setUsername] = useState(''); // 사용자 이름 상태 추가
   const navigate = useNavigate(); 
+
+  // Fetch username on mount
+  useEffect(() => {
+    async function fetchUsername() {
+      try {
+        const response = await getUserInfo();
+        setUsername(response.data.username); // <-- fix here
+      } catch (error) {
+        setUsername('');
+        console.error('사용자 정보를 불러오는 중 오류 발생:', error);
+      }
+    }
+    fetchUsername();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
@@ -44,7 +61,7 @@ const WriteCheer = () => {
     setIsLoading(true);
     
     try {
-        const result = await postStory( {
+          const result = await postStory( {
           content: content,
           categoryId: selectedId
         })
@@ -89,7 +106,7 @@ const WriteCheer = () => {
         }}
       >
         <div style={{ fontSize: "24px", fontWeight: "600" }}>
-          닉네임 님의 <span style={{ color: "rgba(152, 108, 233, 1)" }}>사연</span>을 <br />
+          {(username ? username : "...") + ' 님의 '}<span style={{ color: "rgba(152, 108, 233, 1)" }}>사연</span>을 <br />
           들려주세요
         </div>
         <div style={{ height: "30px" }} />

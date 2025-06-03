@@ -102,12 +102,12 @@ const PopularCheer = () => {
           <StoryInput
             key={post.storyId}
             hasSettings={true}
-            nickname={post.username}
+            nickname={"닉네임"}
             date={
-              post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)
+              "06.02"
             }
             
-            hasLikes={post.cheerCount}
+            hasLikes={10}
             hasBookmark={true}
             style={{
               border: "1px solid rgba(152, 108, 233, 1)",

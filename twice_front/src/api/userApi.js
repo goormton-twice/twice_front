@@ -44,6 +44,7 @@ export const logoutUser = async () => {
 export const getUserInfo = async () => {
   try {
     const res = await api.get('/users/me');
+    console.log("사용자 정보 조회 성공:", res.data);
     return res.data; 
   } 
   catch (err) {
