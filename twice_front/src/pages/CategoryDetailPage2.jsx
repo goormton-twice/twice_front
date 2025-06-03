@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./CategoryDetailPage.css";
 import Arrow from "../components/Arrow";
 import Footer from "../components/Footer";
+import { getUserInfo } from "../api/userApi";
 
 // cheerApi.js에서 랜덤 응원 메시지 호출 함수
 import { getRandomCheerByCategory } from "../api/cheerApi";
@@ -18,6 +19,45 @@ export default function CategoryDetailPage3() {
   const [cheerData, setCheerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchAll() {
+      try {
+        // 1) 사용자 정보 가져오기
+        const userRes = await getUserInfo();
+        const userData = userRes.data;
+        setNickname(userData.username || "익명");
+
+        // 2) 인기 스토리 3개 가져오기
+        const fetchedStories = await getPopularStories(3);
+        setStories(fetchedStories);
+
+        // 3) 각 스토리별 첫 번째 응원 메시지 가져오기
+        const cheersList = await Promise.all(
+          fetchedStories.map(async (story) => {
+            const cheerMessages = await getCheersByStoryId(story.storyId);
+            return (
+              cheerMessages[0] || {
+                content: "아직 응원이 없어요",
+                createdAt: new Date().toISOString(),
+                user: {
+                  username: "cheerup",
+                  profileImageUrl: "/avatars/default.png",
+                },
+              }
+            );
+          })
+        );
+        setCheers(cheersList);
+      } catch (err) {
+        console.error("데이터 불러오기 실패:", err);
+        setNickname("익명");
+        setStories([]);
+        setCheers([]);
+      }
+    }
+    fetchAll();
+  }, []); // 빈 배열: 마운트 시 한 번만 실행
 
   useEffect(() => {
     const fetchRandomCheer = async () => {
