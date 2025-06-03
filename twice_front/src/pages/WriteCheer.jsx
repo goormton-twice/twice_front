@@ -113,7 +113,7 @@ const WriteCheer = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          padding: "40px 30px",
+          padding: "35px 25px",
         }}
       >
         <div style={{ fontSize: "24px", fontWeight: "600" }}>
