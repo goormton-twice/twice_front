@@ -16,6 +16,10 @@ export default function CategoryDetailPage3() {
   const categoryIdNum = 3;
   const categoryName = "잘하고 있다는 말이 듣고 싶어";
 
+  const [index, setIndex] = useState(0);
+  const [stories, setStories] = useState([]);
+  const [cheers, setCheers] = useState([]);
+  const [nickname, setNickname] = useState("익명");
   const [cheerData, setCheerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
