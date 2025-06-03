@@ -100,26 +100,6 @@ export default function CategoryDetailPage3() {
           </div>
 
           <div className="card-content">{cheerData.content}</div>
-
-          <button className="view-support-button" onClick={handleViewSupport}>
-            <span className="view-support-text">응원에 대한 사연 보러 가기</span>
-            <div className="view-support-icon">
-              <svg
-                width="24"
-                height="25"
-                viewBox="0 0 24 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 12.5H19M19 12.5L12 5.5M19 12.5L12 19.5"
-                  stroke="#656565"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </button>
         </div>
       )}
 

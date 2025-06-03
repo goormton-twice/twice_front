@@ -351,10 +351,10 @@
   padding: 10px 30px;
   gap: 10px;
   position: absolute;
-  margin-left: 35px;
   width: 250px;
   height: 43px;
-  top: 400px;
+  top: 31%;
+  margin-left: 25%;
   background: #FFFFFF;
   border: 1px solid #986CE9;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15),
