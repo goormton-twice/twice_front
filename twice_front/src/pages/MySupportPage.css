@@ -1,0 +1,83 @@
+/* src/pages/MySupportsPage.css */
+
+/* 전체 컨테이너 */
+.my-supports-wrapper {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Pretendard", sans-serif;
+}
+
+/* 페이지 제목 */
+.my-supports-wrapper h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* 스토리 리스트 */
+.my-supports-wrapper ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 각 스토리 아이템 */
+.my-supports-item {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 스토리 내용 */
+.my-supports-content {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  word-break: break-word;
+}
+
+/* 메타 정보 (카테고리, 날짜, 응원 수) */
+.my-supports-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* 카테고리 네임 태그 스타일 */
+.my-supports-meta span:nth-child(1) {
+  background-color: #f3e8ff;
+  color: #986ce9;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* 날짜 스타일 */
+.my-supports-meta span:nth-child(2) {
+  color: #999;
+}
+
+/* 응원 수 스타일 */
+.my-supports-meta span:nth-child(3) {
+  color: #444;
+  font-weight: 500;
+}
+
+/* 로딩 및 빈 상태 메시지 */
+.my-supports-wrapper > div {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 80px;
+}

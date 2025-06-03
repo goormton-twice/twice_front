@@ -133,30 +133,33 @@ export default function CategoryDetailPage() {
           {/* 카드 내용: 응원 메시지 */}
           <div className="card-content">{cheerData.content}</div>
 
-          {/* 카드 하단 “응원에 대한 사연 보러 가기” 버튼 */}
-          <button className="view-support-button" onClick={handleViewSupport}>
-            <span className="view-support-text">응원에 대한 사연 보러 가기</span>
-            <div className="view-support-icon">
-              <svg
-                width="24"
-                height="25"
-                viewBox="0 0 24 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 12.5H19M19 12.5L12 5.5M19 12.5L12 19.5"
-                  stroke="#656565"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </button>
-        </div>
-      )}
+        {/* 카드 하단 “응원에 대한 사연 보러 가기” 버튼 */}
+                  <button
+                    className="view-support-button"
+                    onClick={() => navigate(`/stories/${cheerData.storyId}`)}
+                  >
+                    <span className="view-support-text">응원에 대한 사연 보러 가기</span>
+                    <div className="view-support-icon">
+                      <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 12.5H19M19 12.5L12 5.5M19 12.5L12 19.5"
+                          stroke="#656565"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+              )}
 
-      {/* 하단 “나만의 사연 쓰기” 버튼 (fixed) */}
+              {/* 하단 “나만의 사연 쓰기” 버튼 (fixed) */}
       <div className="write-story-bottom-wrapper">
         <button
           className={`write-story-bottom ${isButtonDisabled ? "disabled" : ""}`}
