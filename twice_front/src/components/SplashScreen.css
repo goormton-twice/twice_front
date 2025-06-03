@@ -1,0 +1,54 @@
+/* 🔹 스플래시 전체 컨테이너 */
+.splash-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  /* 배경 이미지 (절대 경로로 public/background.png를 가리킴) */
+  background: url("/background.png") no-repeat center center;
+  background-size: cover;
+
+  /* 내부 콘텐츠를 세로/가로 중앙에 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔹 텍스트 + 로고를 감싸는 박스 */
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 🔹 로고 이미지 (cheerup 타이포) */
+
+.splash-logo {
+
+  /* Auto layout 관련 속성 */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin-bottom: 400px;
+}
+
+
+
+/* 🔹 “당신의 하루에 작은 응원을 담아요” 텍스트 */
+.splash-text {
+  width: 283px;
+  height: 64px;
+  font-family: 'AppleSDGothicNeoSB00', sans-serif;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 32px;
+  text-align: center;
+  color: #FFFFFF;
+
+  /* Auto layout 관련 속성 (참고삼아 넣어두었습니다) */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+

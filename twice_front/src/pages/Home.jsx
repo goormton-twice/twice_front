@@ -5,15 +5,19 @@ import { useSwipeable } from "react-swipeable";
 import HomeSendCheer from "../components/HomeSendCheer";
 import InputBar from "../components/InputBar";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi";
-import { getRandomStories, getPopularStories } from "../api/storyApi";
+import { getPopularStories } from "../api/storyApi";
 import { getUserInfo } from "../api/userApi";
 import "./Home.css";
 import Footer from "../components/Footer";
 import StoryDetailModal from "../components/StoryDetailModal"; // 모달 컴포넌트
+import SplashScreen from "../components/SplashScreen";
 
 const getIdx = (idx, len) => ((idx % len) + len) % len;
 
 export default function Home() {
+  // ───────────────────────────────────────────────────────────────────────
+  // 1) 모든 훅은 컴포넌트 최상단에서 선언합니다.
+  // ───────────────────────────────────────────────────────────────────────
   const [index, setIndex] = useState(0);
   const [showCheerPopup, setShowCheerPopup] = useState(false);
   const [showInputBar, setShowInputBar] = useState(false);
@@ -26,25 +30,31 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStory, setModalStory] = useState(null);
 
-  const len = stories.length;
-  const prev = getIdx(index - 1, len);
-  const curr = getIdx(index, len);
-  const next = getIdx(index + 1, len);
+  // 스플래시 화면 표시 여부
+  const [showSplash, setShowSplash] = useState(true);
 
-  const goPrev = () => setIndex(prev);
-  const goNext = () => setIndex(next);
-
+  // 캐러셀 내비게이션을 위한 useSwipeable 훅
   const handlers = useSwipeable({
-    onSwipedLeft: goNext,
-    onSwipedRight: goPrev,
+    onSwipedLeft: () => setIndex((prevIdx) => getIdx(prevIdx + 1, stories.length)),
+    onSwipedRight: () => setIndex((prevIdx) => getIdx(prevIdx - 1, stories.length)),
     preventDefaultTouchmoveEvent: true,
     trackTouch: true,
     delta: 10,
   });
 
-  const handleCheerClick = () => setShowInputBar(true);
+  // ───────────────────────────────────────────────────────────────────────
+  // 2) SplashScreen 표시용 훅: 마운트 직후 3초 뒤 showSplash를 꺼줍니다.
+  // ───────────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // 유저 정보 & 스토리 동시 fetch
+  // ───────────────────────────────────────────────────────────────────────
+  // 3) 유저 정보 & 스토리 동시 fetch (컴포넌트 마운트 시 한 번 실행)
+  // ───────────────────────────────────────────────────────────────────────
   useEffect(() => {
     async function fetchAll() {
       try {
@@ -75,15 +85,18 @@ export default function Home() {
         );
         setCheers(cheersList);
       } catch (err) {
+        console.error("데이터 불러오기 실패:", err);
         setNickname("익명");
         setStories([]);
         setCheers([]);
-        console.error("데이터 불러오기 실패:", err);
       }
     }
     fetchAll();
-  }, []);
+  }, []); // 빈 배열: 마운트 시 한 번만 실행
 
+  // ───────────────────────────────────────────────────────────────────────
+  // 4) 응원 메시지 전송 후 처리
+  // ───────────────────────────────────────────────────────────────────────
   const onInputSubmit = async (textValue) => {
     const currentStory = stories[index];
     if (!currentStory) return;
@@ -104,11 +117,12 @@ export default function Home() {
     setShowInputBar(false);
   };
 
-  // 모달 열기
+  // ───────────────────────────────────────────────────────────────────────
+  // 5) 모달 오픈/클로즈 함수
+  // ───────────────────────────────────────────────────────────────────────
   const openModal = (story) => {
-    // story 객체에 avatar, user, date, content 정보를 담아서 넘겨줍니다.
     const modalData = {
-      avatar: "/person1.svg",           // avatar를 story-level에서 제공받지 않는다면, placeholder 사용
+      avatar: "/person1.svg", // placeholder
       user: story.username,
       date: story.createdAt
         ? new Date(story.createdAt).toLocaleDateString()
@@ -119,11 +133,29 @@ export default function Home() {
     setIsModalOpen(true);
   };
 
-  // 모달 닫기
   const closeModal = () => {
     setIsModalOpen(false);
     setModalStory(null);
   };
+
+  // ───────────────────────────────────────────────────────────────────────
+  // “스플래시가 뜬 상태”라면, 아래의 실제 홈 화면 JSX를 렌더하지 않고
+  // 바로 SplashScreen 컴포넌트를 반환합니다. 이렇게 하면 훅 호출 순서는
+  // 항상 동일하게 유지되고, 조건부 렌더링만 바뀝니다.
+  // ───────────────────────────────────────────────────────────────────────
+  if (showSplash) {
+    return <SplashScreen />;
+  }
+
+  // ───────────────────────────────────────────────────────────────────────
+  // 이 시점부터는 showSplash가 false → 실제 홈 화면을 렌더
+  // ───────────────────────────────────────────────────────────────────────
+  const len = stories.length;
+  const prev = getIdx(index - 1, len);
+  const curr = getIdx(index, len);
+  const next = getIdx(index + 1, len);
+
+  const handleCheerClick = () => setShowInputBar(true);
 
   // 카드 컴포넌트
   const Card = ({ story, cheer, isMain, onClick, side }) => (
@@ -140,10 +172,10 @@ export default function Home() {
       transition={{ type: "spring", stiffness: 220, damping: 30 }}
       onClick={() => {
         if (!isMain) {
-          // 양옆 카드는 슬라이드
+          // 왼쪽/오른쪽 카드를 클릭하면 슬라이드 이동
           onClick();
         } else {
-          // 가운데 카드(메인)을 클릭하면 모달 오픈
+          // 가운데 카드를 클릭하면 모달 오픈
           openModal(story);
         }
       }}
@@ -215,7 +247,7 @@ export default function Home() {
                 story={stories[prev]}
                 cheer={cheers[prev]}
                 isMain={false}
-                onClick={goPrev}
+                onClick={() => setIndex(prev)}
                 side="left"
               />
               <Card story={stories[curr]} cheer={cheers[curr]} isMain={true} />
@@ -223,7 +255,7 @@ export default function Home() {
                 story={stories[next]}
                 cheer={cheers[next]}
                 isMain={false}
-                onClick={goNext}
+                onClick={() => setIndex(next)}
                 side="right"
               />
             </>
@@ -264,13 +296,12 @@ export default function Home() {
         )}
       </div>
 
-      {/* 모달 컴포넌트 */}
+      {/* StoryDetailModal (모달 컴포넌트) */}
       <StoryDetailModal
         isOpen={isModalOpen}
         onClose={closeModal}
         story={modalStory}
       />
-
       <Footer />
     </div>
   );

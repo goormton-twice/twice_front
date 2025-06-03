@@ -59,7 +59,7 @@ export default function CategoryDetailPage3() {
   };
 
   const handleWriteStory = () => {
-    navigate("/write");
+    navigate("/writeCheer");
   };
 
   const supportCount = cheerData ? 1 : 0;
@@ -125,9 +125,8 @@ export default function CategoryDetailPage3() {
 
       <div className="write-story-bottom-wrapper">
         <button
-          className={`write-story-bottom ${isButtonDisabled ? "disabled" : ""}`}
+          className="write-story-bottom"
           onClick={handleWriteStory}
-          disabled={isButtonDisabled}
         >
           <span className="write-story-text">나만의 사연 쓰기</span>
           <div className="write-story-icon">
