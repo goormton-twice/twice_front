@@ -87,6 +87,7 @@ export default function CategoryDetailPage3() {
       {!loading && !error && cheerData && (
         <div className="category-detail-card">
           <div className="card-header">
+            <img src="/person3.svg"></img>
             <div className="card-avatar">
               <div className="avatar-placeholder"></div>
             </div>

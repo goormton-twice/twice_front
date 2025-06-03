@@ -14,8 +14,8 @@
 .modal-container {
   background: #fff;
   position: fixed;
-  margin-top: 250px;
-  margin-left: -5px;
+  margin-top: 60px;
+  margin-left: 45px;
   width: 314px;    /* Figma에서 지정한 폭 */
   height: auto;   /* Figma에서 지정한 높이 */
   z-index: 101;    /* overlay보다 위 */

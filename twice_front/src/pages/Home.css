@@ -287,8 +287,9 @@
   width: 230px;
   height: 43px;
   /* 부모 컨테이너(예: 카드)의 가로 중앙, 세로 원하는 위치에 맞춰 조정하세요 */
-  left: 45px;
-  top: calc(50% - 43px/2 + 235.5px);
+  
+  top: 550px;
+  left: 57px;
 
   display: flex;
   flex-direction: row;

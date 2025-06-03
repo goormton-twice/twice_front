@@ -53,10 +53,10 @@ const PopularCheersList = () => {
       style={{
         width: "100%",
         height: "screen",
-        background:"linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)"
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F1E9FF 100%)"
       }}
     >
-      <div style={{ padding: "35px 25px 0 25px",  display: "flex",
+      <div style={{ padding: "35px 25px 0 25px", display: "flex",
         alignContent: "center",
         flexDirection: "column", gap: "10px" }}>
         <div style={{ fontWeight: "700", fontSize: "1.5em" }}>인기 응원함</div>
@@ -95,18 +95,28 @@ const PopularCheersList = () => {
             응원
           </Button>
         </div>
-        {filteredPosts.map((post) => (
-          <StoryInput
-            key={post.storyId}
-            nickname={post.username}
-            hasLikes={post.cheerCount}
-            style={{border:"0", borderBottom:"2px solid rgba(218, 218, 218, 1)", boxShadow:"none", borderRadius:"0", backgroundColor:"transparent"}}
-            date = {post.createdAt.slice(5,7) + "." + post.createdAt.slice(8,10)}
-            onClick={() => handlePostClick(post.storyId)}
-          >
-            {post.content}
-          </StoryInput>
-        ))}
+        {filteredPosts.map((post) => {
+          const randomImage = `/person${Math.floor(Math.random() * 3) + 1}.svg`;
+          return (
+            <StoryInput
+              key={post.storyId}
+              nickname={post.username}
+              hasLikes={post.cheerCount}
+              url={randomImage}
+              style={{
+                border: "0",
+                borderBottom: "2px solid rgba(218, 218, 218, 1)",
+                boxShadow: "none",
+                borderRadius: "0",
+                backgroundColor: "transparent"
+              }}
+              date={post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)}
+              onClick={() => handlePostClick(post.storyId)}
+            >
+              {post.content}
+            </StoryInput>
+          );
+        })}
       </div>
       <Footer />
     </div>

@@ -6,9 +6,10 @@ import HomeSendCheer from "../components/HomeSendCheer";
 import InputBar from "../components/InputBar";
 import { getCheersByStoryId, postCheer } from "../api/cheerApi";
 import { getRandomStories, getPopularStories } from "../api/storyApi";
-import { getUserInfo } from "../api/userApi"; // 사용자 정보 호출 함수
+import { getUserInfo } from "../api/userApi";
 import "./Home.css";
 import Footer from "../components/Footer";
+import StoryDetailModal from "../components/StoryDetailModal"; // 모달 컴포넌트
 
 const getIdx = (idx, len) => ((idx % len) + len) % len;
 
@@ -20,6 +21,10 @@ export default function Home() {
   const [cheers, setCheers] = useState([]);
   const [nickname, setNickname] = useState("익명");
   const [lastCheeredStoryId, setLastCheeredStoryId] = useState(null);
+
+  // 모달 관련 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalStory, setModalStory] = useState(null);
 
   const len = stories.length;
   const prev = getIdx(index - 1, len);
@@ -44,9 +49,8 @@ export default function Home() {
     async function fetchAll() {
       try {
         // 1) 사용자 정보 가져오기
-        // getUserInfo()는 GET /api/users/me 를 호출하여 { data: { username, ... } } 형태를 리턴한다고 가정
         const userRes = await getUserInfo();
-        const userData = userRes.data; // { role, id, email, username, provider }
+        const userData = userRes.data;
         setNickname(userData.username || "익명");
 
         // 2) 인기 스토리 3개 가져오기
@@ -100,6 +104,27 @@ export default function Home() {
     setShowInputBar(false);
   };
 
+  // 모달 열기
+  const openModal = (story) => {
+    // story 객체에 avatar, user, date, content 정보를 담아서 넘겨줍니다.
+    const modalData = {
+      avatar: "/person1.svg",           // avatar를 story-level에서 제공받지 않는다면, placeholder 사용
+      user: story.username,
+      date: story.createdAt
+        ? new Date(story.createdAt).toLocaleDateString()
+        : "-",
+      content: story.content,
+    };
+    setModalStory(modalData);
+    setIsModalOpen(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalStory(null);
+  };
+
   // 카드 컴포넌트
   const Card = ({ story, cheer, isMain, onClick, side }) => (
     <motion.div
@@ -114,13 +139,19 @@ export default function Home() {
       }
       transition={{ type: "spring", stiffness: 220, damping: 30 }}
       onClick={() => {
-        if (!isMain) onClick();
+        if (!isMain) {
+          // 양옆 카드는 슬라이드
+          onClick();
+        } else {
+          // 가운데 카드(메인)을 클릭하면 모달 오픈
+          openModal(story);
+        }
       }}
     >
       <div className="card-story-wrapper">
         <div className="card-story-header">
           <img
-            src="/avatars/default.png"
+            src="/person1.svg"
             alt={story.username}
             className="card-story-avatar"
           />
@@ -137,7 +168,7 @@ export default function Home() {
       <div className="card-cheer-wrapper">
         <div className="card-cheer-header">
           <img
-            src={cheer.user?.profileImageUrl || "/avatars/default.png"}
+            src="/person2.svg"
             alt={cheer.user?.username || "cheerup"}
             className="card-cheer-avatar"
           />
@@ -232,6 +263,13 @@ export default function Home() {
           />
         )}
       </div>
+
+      {/* 모달 컴포넌트 */}
+      <StoryDetailModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        story={modalStory}
+      />
 
       <Footer />
     </div>

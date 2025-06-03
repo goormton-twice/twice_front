@@ -97,8 +97,7 @@ export default function CategoryDetailPage1() {
         <div className="category-detail-card">
           <div className="card-header">
             <div className="card-avatar">
-              {/* 실제 프로필 이미지가 있으면 img 태그로 교체 */}
-              <div className="avatar-placeholder"></div>
+              <img src="/person3.svg"></img>
             </div>
             <span className="card-username">{cheerData.username}</span>
             <span className="card-date">

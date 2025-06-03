@@ -4,7 +4,7 @@ import Button from "./Button.jsx";
 import Likes from "./Likes";
 import "./StoryInput.css";
 import SettingBtn from './SettingBtn';
-import Profile from './profile';
+import Profile from './Profile';
 import Setting from './Setting';
 const StoryInput = (props) => {
 
