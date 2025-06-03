@@ -67,7 +67,7 @@ const PersonalCheer = () => {
           <Profile
             stroke="rgba(152, 108, 233, 1)"
             fill="rgba(247, 243, 255, 1)"
-            onClick={() => navigate("/mypage")}
+            // onClick={() => navigate("/mypage")}
           ></Profile>
         </div>
         <div

@@ -1,4 +1,4 @@
-// src/pages/CategoryDetailPage1.jsx
+// src/pages/CategoryDetailPage3.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CategoryDetailPage.css";
@@ -8,14 +8,13 @@ import Footer from "../components/Footer";
 // cheerApi.js에서 랜덤 응원 메시지 호출 함수
 import { getRandomCheerByCategory } from "../api/cheerApi";
 
-export default function CategoryDetailPage1() {
+export default function CategoryDetailPage3() {
   const navigate = useNavigate();
 
-  // 카테고리 ID = 1 (내 편 좀 들어줘)
+  // 카테고리 ID = 3 (“잘하고 있다는 말이 듣고 싶어”)
   const categoryIdNum = 1;
   const categoryName = "내 편 좀 들어줘";
 
-  // 상태: 응원 데이터, 로딩, 에러
   const [cheerData, setCheerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +26,7 @@ export default function CategoryDetailPage1() {
       setCheerData(null);
 
       try {
-        // 실제 API 호출: /api/cheers/random?categoryId=1
+        // 실제 API 호출: /api/cheers/random?categoryId=3
         const result = await getRandomCheerByCategory(categoryIdNum);
 
         if (result.success) {
@@ -47,7 +46,6 @@ export default function CategoryDetailPage1() {
     fetchRandomCheer();
   }, []);
 
-  // 뒤로 가기 클릭 시
   const handleBack = () => {
     navigate(-1);
   };
@@ -64,14 +62,12 @@ export default function CategoryDetailPage1() {
     navigate("/write");
   };
 
-  // 예시용: 응원 개수 비교
   const supportCount = cheerData ? 1 : 0;
   const minSupportCount = 3;
   const isButtonDisabled = supportCount < minSupportCount;
 
   return (
     <div className="category-detail-wrapper">
-      {/* 상단 헤더 */}
       <div className="category-detail-header">
         <div className="back-arrow" onClick={handleBack}>
           <Arrow />
@@ -79,25 +75,20 @@ export default function CategoryDetailPage1() {
         <h1 className="category-detail-title">무조건 응원함</h1>
       </div>
 
-      {/* 서브타이틀 */}
       <div className="category-detail-subtitle">
         “{categoryName}”에 대한 응원이에요
       </div>
 
-      {/* 로딩 상태 */}
       {loading && (
         <p className="category-detail-loading">응원 메시지를 불러오는 중...</p>
       )}
-
-      {/* 에러 상태 */}
       {error && <p className="category-detail-error">에러: {error}</p>}
 
-      {/* 카드 렌더링 */}
       {!loading && !error && cheerData && (
         <div className="category-detail-card">
           <div className="card-header">
             <div className="card-avatar">
-              <img src="/person3.svg"></img>
+              <img src="/person1.svg"></img>
             </div>
             <span className="card-username">{cheerData.username}</span>
             <span className="card-date">
@@ -132,7 +123,6 @@ export default function CategoryDetailPage1() {
         </div>
       )}
 
-      {/* 하단 버튼 */}
       <div className="write-story-bottom-wrapper">
         <button
           className={`write-story-bottom ${isButtonDisabled ? "disabled" : ""}`}
