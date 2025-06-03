@@ -101,7 +101,7 @@ export default function CategoryDetailPage3() {
 
           <div className="card-content">{cheerData.content}</div>
 
-          <button className="view-support-button" onClick={handleViewSupport}>
+          {/* <button className="view-support-button" onClick={handleViewSupport}>
             <span className="view-support-text">응원에 대한 사연 보러 가기</span>
             <div className="view-support-icon">
               <svg
@@ -119,7 +119,7 @@ export default function CategoryDetailPage3() {
                 />
               </svg>
             </div>
-          </button>
+          </button> */}
         </div>
       )}
 
