@@ -34,7 +34,7 @@ export default function StoryDetailPage() {
         const storyData = res.data; 
 
         setCard({
-          avatar: "/person1.svg", // 실제 프로필 URL이 있으면 storyData.profileImageUrl로 교체
+          avatar: "/person3.svg", // 실제 프로필 URL이 있으면 storyData.profileImageUrl로 교체
           user: storyData.username || "익명",
           date: storyData.createdAt
             ? new Date(storyData.createdAt).toLocaleDateString()
