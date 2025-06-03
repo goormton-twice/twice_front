@@ -41,7 +41,8 @@ const StoryInput = (props) => {
           </div>
           {icons}
         </div>
-        {Tag && <Button disabled>{Tag}</Button>}
+        {Tag && <Button style={{ width:"70px", fontSize:"12px", padding: "15px 5px",
+                borderRadius: "30px",}} disabled>{Tag}</Button>}
       </div>
 
       <div

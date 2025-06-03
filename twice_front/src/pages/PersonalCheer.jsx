@@ -38,10 +38,10 @@ const PersonalCheer = () => {
     }
     fetchPosts();
   }, []);
-  //const filteredPosts =
-  //selectedTag === null
-  //  ? posts
-  // : posts.filter((post) => post.categoryName.includes(selectedTag));
+  const filteredPosts =
+    selectedTag === null
+    ? posts
+   : posts.filter((post) => post.categoryName.includes(selectedTag));
 
   return (
     <div
@@ -133,7 +133,7 @@ const PersonalCheer = () => {
               : { display: "none" }
           }
         >
-          <Rock />
+          <Rock onClick={() => setIsFiltered(!isFiltered)} />
           <div style={{ textAlign: "center",fontWeight:"500", width: "250px", marginTop: "10px" }}>
             응원을 2개 더 보내면 <br /> 내가 받은 응원을 볼 수 있어요
           </div>
@@ -146,41 +146,43 @@ const PersonalCheer = () => {
             <Button
               onClick={handleTagClick}
               style={{
-                padding: "15px 25px",
+                padding: "15px 15px",
                 borderRadius: "30px",
                 border: "1px solid rgba(137, 137, 137, 1)",
               }}
             >
-              공감
+              화이팅
             </Button>
             <Button
               onClick={handleTagClick}
               style={{
-                padding: "15px 25px",
+                padding: "15px 15px",
                 borderRadius: "30px",
                 border: "1px solid rgba(137, 137, 137, 1)",
               }}
             >
-              위로
+              힘내요
             </Button>
             <Button
               onClick={handleTagClick}
               style={{
-                padding: "15px 25px",
+                padding: "15px 15px",
                 borderRadius: "30px",
                 border: "1px solid rgba(137, 137, 137, 1)",
               }}
             >
-              응원
+              할수있어
             </Button>
           </div>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "10px" }}
           >
-            {posts.map((post) => (
+            {filteredPosts.map((post) => (
               <StoryInput
                 key={post.storyId}
                 hasLikes={post.cheerCount}
+                url={"/person3.svg"}
+                Tag={post.categoryName}
                 style={{}}
                 nickname={post.username}
                 date={

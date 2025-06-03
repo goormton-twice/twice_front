@@ -70,7 +70,7 @@ const PopularCheersList = () => {
               borderRadius: "30px",
             }}
           >
-            공감
+            화이팅
           </Button>
           <Button
             onClick={handleTagClick}
@@ -81,7 +81,7 @@ const PopularCheersList = () => {
               borderRadius: "30px",
             }}
           >
-            위로
+            힘내요
           </Button>
           <Button
             onClick={handleTagClick}
@@ -92,7 +92,7 @@ const PopularCheersList = () => {
               borderRadius: "30px",
             }}
           >
-            응원
+            할수있어
           </Button>
         </div>
         {filteredPosts.map((post) => {
@@ -110,6 +110,7 @@ const PopularCheersList = () => {
                 borderRadius: "0",
                 backgroundColor: "transparent"
               }}
+              Tag = {post.categoryName}
               date={post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)}
               onClick={() => handlePostClick(post.storyId)}
             >
