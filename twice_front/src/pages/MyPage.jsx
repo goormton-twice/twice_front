@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../api/userApi';
-import './MyPage.css';
+import './MySupportPage.css';
 import Arrow from '../components/Arrow';
 
 export default function MyPage() {
