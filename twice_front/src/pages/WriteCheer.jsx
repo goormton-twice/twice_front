@@ -19,6 +19,7 @@ const TextArea = styled.textarea`
   translate: 5px -5px;
   }
   display: flex;
+  max-height: 300px;  /* 최대 높이 제한 */
   align-items: center;
   width: 100%;
   height: 38px;
@@ -26,6 +27,8 @@ const TextArea = styled.textarea`
   border-radius: 18px;
   padding: 11px;
   box-shadow: 0px 4px 4px rgba(81, 80, 80, 0.25);
+  overflow: hidden; 
+  resize: none; /* 크기 조절 막기 */
 `;
 
 const WriteCheer = () => {
@@ -49,6 +52,14 @@ const WriteCheer = () => {
     }
     fetchUsername();
   }, []);
+  const handleChange = (e) => {
+  setContent(e.target.value);
+
+  // 높이 자동 조절
+  e.target.style.height = 'auto'; // 높이 초기화
+  e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 맞게 높이 조정
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -122,7 +133,7 @@ const WriteCheer = () => {
           <label style={{ marginBottom: "10px", fontWeight: "500" }}>
             당신의 사연은 무엇인가요?
           </label>
-          <TextArea value={content} onChange={(e) => setContent(e.target.value)} disabled={isLoading} placeholder="나의 사연 남기기" />
+          <TextArea value={content} onChange={handleChange} disabled={isLoading} placeholder="나의 사연 남기기" />
           <Button
             type="submit"
             style={{

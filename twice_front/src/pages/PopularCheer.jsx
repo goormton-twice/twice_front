@@ -109,7 +109,7 @@ const PopularCheer = () => {
               post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)
             }
             
-            hasLikes={10}
+            hasLikes={post.cheerCount}
             hasBookmark={true}
             style={{
               border: "1px solid rgba(152, 108, 233, 1)",
@@ -157,11 +157,15 @@ const PopularCheer = () => {
       </div>
       <div style = {{ display: "flex", flexDirection: "column", gap: "10px", zIndex:"0" }}>
       {cheers.map((cheer) => {
+        // 랜덤 아바타 이미지 선택
+        const avatars = ["/person1.svg", "/person2.svg", "/person3.svg"];
+        const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
         return (
             <StoryInput
             key={cheer.cheerId}
             hasLikes={cheer.cheerCount}
             nickname={cheer.username}
+            url={randomAvatar}
             date={
               cheer.createdAt.slice(5, 7) + "." + cheer.createdAt.slice(8, 10)
             }

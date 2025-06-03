@@ -21,7 +21,7 @@ const PersonalCheerDetail = () => {
     async function fetchPosts() {
       try {
         const response = await getStoryById(id);
-        setPost(response);
+        setPost(response.data);
         console.log("개인 응원함을 불러오는 중:", response);
       } catch (error) {
         console.error("API 호출 실패:", error);
@@ -82,6 +82,7 @@ const PersonalCheerDetail = () => {
             key={post.storyId}
             hasSettings={true}
             nickname={post.username}
+            url={"/person3.svg"}
             date={
               post.createdAt.slice(5, 7) + "." + post.createdAt.slice(8, 10)}
             hasLikes={post.cheerCount}
@@ -99,10 +100,14 @@ const PersonalCheerDetail = () => {
       
       <div style = {{ display: "flex", flexDirection: "column", gap: "10px", zIndex:"0" }}>
       {cheers.map((cheer) => {
+        // 랜덤으로 person1, person2, person3.svg 중 하나를 선택
+        const personNum = Math.floor(Math.random() * 3) + 1;
+        const personUrl = `/person${personNum}.svg`;
         return (
             <StoryInput
             key={cheer.cheerId}
             nickname={cheer.username}
+            url={personUrl}
             date={
               cheer.createdAt.slice(5, 7) + "." + cheer.createdAt.slice(8, 10)
             }
